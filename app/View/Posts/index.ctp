@@ -97,9 +97,19 @@
           <br />
           <br />
 
-          <?php var_dump($posts) ?>
+          <?php //var_dump($posts) ?>
 
-
+          <table class="table table-striped">
+              <?php foreach ($posts as $post): ?>
+               <tr>
+               <td>
+               <strong><?php echo $post['Post']['name']; ?></strong> kirjoitti:<br />
+               <small><?php echo $post['Post']['created_at']; ?></small>
+               <p><?php echo $post['Post']['message']; ?></p>
+               </td>
+               </tr>
+              <?php endforeach; ?>
+          </table>
           
 
         </div>
