@@ -54,7 +54,7 @@
 
        <fieldset>
       <legend>Valitse tuotekoodi:</legend>
-       <?php echo $this->Form->select('Product.ptype_id', $options); ?>
+       <?php echo $this->Form->select('Product.ptype_id', $options, array('empty' => false)); ?>
        </fieldset>
 
        <?php echo $this->Form->end('Etsi Tuotteita');?>
