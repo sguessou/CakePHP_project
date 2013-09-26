@@ -14,11 +14,12 @@
     <!-- Custom styles for this template -->
     <link href="/css/jumbotron-narrow.css" rel="stylesheet">
 
-    <!-- Font-Awesome CDN-->  
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-  </head>
 
-  <body>
+
+
+
+    <body>
+
 
     <div class="container-narrow">
 
@@ -44,31 +45,25 @@
       
       ?>
       
+       <h4>Anna hakemasi tuotteen nimi tai osa siitä:</h4>
 
-       <?php echo $this->Form->create('Products', array('action' => 'search')); ?> 
+       <?php echo $this->BootstrapForm->create('Products', array('action' => 'search')); ?> 
       
-      <fieldset>
-      <legend>Anna hakemasi tuotteen nimi tai osa siitä:</legend>
-       <?php echo $this->Form->input('Product.product_name', array('type' => 'text', 'label' => 'Nimeke')); ?>
-       </fieldset>
+       <?php echo $this->BootstrapForm->input('Product.product_name', array('placeholder' => 'Syöttää nimeke', 'label' => false)); ?>       
+       
+       Valitse tuotekoodi:   
+       <?php echo $this->BootstrapForm->select('Product.ptype_id', $options, array('empty' => false)); ?>
+       
+       <br />
+       <br />
 
-       <fieldset>
-      <legend>Valitse tuotekoodi:</legend>
-       <?php echo $this->Form->select('Product.ptype_id', $options, array('empty' => false)); ?>
-       </fieldset>
-
-       <?php echo $this->Form->end('Etsi Tuotteita');?>
-
-
+       <?php echo $this->BootstrapForm->end('Etsi Tuoteitta'); ?>
       
-    
-      
+       
+       
+       <br /><br />
 
-    
-
-
-
-    <div class="footer">
+       <div class="footer">
         <p>&copy; Verkkokauppa 2013</p>
     </div>
     </div> <!-- /container -->
@@ -80,3 +75,14 @@
   
   </body>
 </html>
+
+
+      
+    
+      
+
+    
+
+
+
+    
