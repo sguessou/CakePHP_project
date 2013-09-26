@@ -36,17 +36,20 @@
      <table class="table table-hover">
        <thead>
        <tr>
-          <th>Tuote</th>
+          <th>#</th>
           <th>Nimi</th>
+          <th><i class="icon-shopping-cart icon-large"></i></th>
        </tr>
        </thead>
        <tbody>
   
       <?php
         
+        $num = 1;
+        
         foreach ($products as $product)
         {
-          echo '<tr><td>'.$product['Product']['product_id'].'</td><td><a data-toggle="modal" href="#modal_'.$product['Product']['product_id'].'">'.$product['Product']['product_name'].'</a></td></tr>';
+          echo '<tr><td>' . $num++ . '</td><td><a data-toggle="modal" href="#modal_' . $product['Product']['product_id'] . '">' . $product['Product']['product_name'].'</a></td><td><a href=""><i class="icon-plus"></i>&nbsp;Add to cart</a></td></tr>';
         
       ?> 
       <!-- Modal -->  
