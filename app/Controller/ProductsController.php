@@ -17,7 +17,7 @@ class ProductsController extends AppController {
     public function search()
     {
         
-        if ( ! empty($this->data))
+        if ( $this->data['Product']['product_name'])
         {
             $products = $this->Product->find('all', 
                 array('conditions' => 
@@ -27,9 +27,12 @@ class ProductsController extends AppController {
 
             $this->set('products', $products);
         }
-        elseif ( empty($this->data)) 
+        elseif ( ! $this->data['Product']['product_name']) 
         {
-            $this->set('products', 'null');
+            $products = $this->Product->find('all', 
+                         array('conditions' => array('Product.ptype_id' => (int) $this->data['Product']['ptype_id'])
+                    ));
+            $this->set('products', $products);
         }          
     }
 
