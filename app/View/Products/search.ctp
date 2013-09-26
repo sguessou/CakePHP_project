@@ -33,11 +33,44 @@
         <h3 class="text-muted">Haun Tulos:</h3>
       </div>
      
+     <table class="table table-hover">
+       <thead>
+       <tr>
+          <th>Tuote</th>
+          <th>Nimi</th>
+       </tr>
+       </thead>
+       <tbody>
+  
       <?php
-
-          var_dump($postData);
-
-      ?>      
+        
+        foreach ($products as $product)
+        {
+          echo '<tr><td>'.$product['Product']['product_id'].'</td><td><a data-toggle="modal" href="#modal_'.$product['Product']['product_id'].'">'.$product['Product']['product_name'].'</a></td></tr>';
+        
+      ?> 
+      <!-- Modal -->  
+      <div class="modal fade" id="modal_<?php echo $product['Product']['product_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><?php echo $product['Product']['product_name']; ?></h4>
+          </div>
+          <div class="modal-body">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <?php } ?>
+    
+    </tbody>  
+    </table>   
       
 
     
