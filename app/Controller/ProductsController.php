@@ -16,6 +16,7 @@ class ProductsController extends AppController {
         $this->pageTitle = 'Verkkokauppa';
 	}
 
+
     public function search()
     {
         $this->set('title_for_layout', 'Haun Tulos');
@@ -63,9 +64,17 @@ class ProductsController extends AppController {
         }
 
         $this->pageTitle = 'Haun Tulos';          
-    }
+    
+    }//End method search
 
-	
+	public function addView()
+    {
+        $this->set('title_for_layout', 'Verkkokauppa');
+
+        $this->loadModel('Product_type');
+        
+        $this->set('ptypes', $this->Product_type->find('all'));
+    }
 
 	
 }
