@@ -53,6 +53,12 @@
        
        Valitse tuotekoodi:   
        <?php echo $this->BootstrapForm->select('Product.ptype_id', $options, array('empty' => false)); ?>
+
+       <br />
+       <br />
+       
+       Järjestä tuotenimen mukaisesti:
+       <?php echo $this->Form->checkbox('order'); ?>
        
        <br />
        <br />
