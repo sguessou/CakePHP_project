@@ -32,7 +32,36 @@
       <div class="header"> 
         <h3 class="text-muted">Tuotehaku</h3>
       </div>
+     
+      <?php 
 
+      $options = array();
+
+      foreach ($ptypes as $ptype)
+      {
+        $options[$ptype['Product_type']['ptype_id']] = $ptype['Product_type']['type_name'];
+      }
+      
+      ?>
+      
+
+       <?php echo $this->Form->create('Products', array('action' => 'search')); ?> 
+      
+      <fieldset>
+      <legend>Anna hakemasi tuotteen nimi tai osa siitä:</legend>
+       <?php echo $this->Form->input('Product.product_name', array('type' => 'text', 'label' => 'Nimeke')); ?>
+       </fieldset>
+
+       <fieldset>
+      <legend>Valitse tuotekoodi:</legend>
+       <?php echo $this->Form->select('Product.ptype_id', $options); ?>
+       </fieldset>
+
+       <?php echo $this->Form->end('Etsi Tuotteita');?>
+
+
+      
+    
       
 
     
