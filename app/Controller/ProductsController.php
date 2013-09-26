@@ -3,7 +3,7 @@
 
 class ProductsController extends AppController {
 
-	public $helpers = array('Html', 'Form');
+	public $helpers = array('Html', 'Form' => array('className' => 'BootstrapForm'));
 
 	public function index()
 	{
@@ -12,6 +12,8 @@ class ProductsController extends AppController {
         $this->loadModel('Product_type');
 
         $this->set('ptypes', $this->Product_type->find('all'));
+
+        $this->pageTitle = 'Verkkokauppa';
 	}
 
     public function search()
