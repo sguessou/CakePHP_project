@@ -32,12 +32,20 @@
       <div class="header"> 
         <h3 class="text-muted">Haun Tulos:</h3>
       </div>
+
+  <?php if ( !$products) :?>
+
+        <div class="alert alert-info">
+            <strong>Huomio!</strong> Sinun hakusi ei tuottanut yhtään tulosta.
+        </div>
+  
+  <?php else :?>
      
      <table class="table table-hover">
        <thead>
        <tr>
           <th>#</th>
-          <th>Nimi</th>
+          <th>Tuotenimi</th>
           <th><i class="icon-shopping-cart icon-large"></i></th>
        </tr>
        </thead>
@@ -127,7 +135,8 @@
     
     </tbody>  
     </table>   
-      
+
+<?php endif ?>      
 
     
 
