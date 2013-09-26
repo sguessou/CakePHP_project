@@ -48,38 +48,15 @@
               <div class="modal-body">
 
              
-                <form class="form-horizontal" role="form" action="" method="post">
-                  <div class="form-group">
-                    <label for="nimi" class="col-lg-2 control-label">Nimi</label>
-                    <div class="col-lg-6">
-                      <input type="text" class="form-control" name="nimi" placeholder="Kirjoita nimesi" required="required">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="email" class="col-lg-2 control-label">Sähköposti</label>
-                    <div class="col-lg-6">
-                      <input type="email" class="form-control" name="email" placeholder="e.g. nimi.sukunimi@gmail.com">
-                    </div>
-                  </div>
+               <?php 
 
-                  <div class="form-group">
-                    <label for="viesti" class="col-lg-2 control-label">Viesti</label>
-                    <div class="col-lg-6">
-                      <textarea class="form-control" name="viesti" rows="4" placeholder="Kirjoita viestisi..."></textarea>
-                    </div>
-                  </div>
+                 echo $this->Form->create('Post', array('action' => 'add')); 
+                 echo $this->Form->input('name');
+                 echo $this->Form->input('email');
+                  echo $this->Form->input('message', array('rows' => '3'));
+                  echo $this->Form->end('Save Post');
 
-                  <div class="form-group">
-                    <label for="void" class="col-lg-2 control-label"></label>
-                  </div>
-
-                 <div class="form-group">
-                    <label for="void" class="col-lg-2 control-label"></label>
-                    <div class="col-lg-6">
-                      <button type="submit" class="btn btn-default">Kirjoita vieraskirjaan</button>
-                    </div>
-                  </div>
-                </form>
+                 ?>
                  
 
                 
