@@ -1,19 +1,37 @@
 <?php
 
+App::uses('ConnectionManager', 'Model');
 
 class ProductsController extends AppController {
 
-	public $helpers = array('Html', 'Form' => array('className' => 'BootstrapForm'), 'Js' => array('Jquery'));
+	public $helpers = array('Html', 'Form' => array('className' => 'BootstrapForm'), 'Js');
+
+    public $components = array('RequestHandler');
 
 	public function index()
 	{
 		$this->set('title_for_layout', 'Verkkokauppa');
         
-        $this->loadModel('Product_type', 'Cartitem');
+        $this->loadModel('Product_type');
+        $this->loadModel('Cartitem');
 
         $this->set('ptypes', $this->Product_type->find('all'));
 
-        $this->set('cartItems', $this->Cartitem->find('all', array()));
+        // If cart_id is in the session, get it from there 
+        $cart_id = $this->Session->read('cartId');
+        // If not we generate a new one and save it in the session
+        if (! $cart_id)
+        {
+            $cart_id = md5( uniqid(rand(), true) );
+
+            $this->Session->write('cartId', $cart_id);
+        }
+
+        $this->set('cartItems', $this->Cartitem->find('all', array(
+                                         'conditions' => array('Cartitem.cart_id LIKE' => $cart_id),
+                                         'fields' => array('SUM(Cartitem.quantity) AS cnt'),
+                                         'group' => 'Cartitem.cart_id'           
+                                                      )));
 
         $this->pageTitle = 'Verkkokauppa';
 	}
@@ -22,7 +40,10 @@ class ProductsController extends AppController {
     public function search()
     {
         $this->set('title_for_layout', 'Haun Tulos');
-        
+
+      if ( ! $this->RequestHandler->isAjax())
+      {
+
 
         if ( $this->data['Product']['product_name'] && ! $this->data['order'])
         {
@@ -64,7 +85,26 @@ class ProductsController extends AppController {
 
             $this->set('products', $products);
         }
+     }//End outer if
+       
+            $this->loadModel('Cartitem');
+            
+            $db = ConnectionManager::getDataSource('default');
 
+            $cartId = $this->Session->read('cartId');
+
+            if ($this->Cartitem->save($this->data))
+            {
+                    if ($this->RequestHandler->isAjax())
+                    {
+                        $this->set('dataitems', $db->fetchAll('SELECT products.* FROM products INNER JOIN cartitems  
+                                                                WHERE products.product_id = cartitems.product_id 
+                                                                AND cartitems.cart_id LIKE ? ', array($cartId)));
+                        $this->render('add_to_cart', 'ajax');
+                    }
+                
+             }   
+    
         $this->pageTitle = 'Haun Tulos';          
     
     }//End method search
@@ -94,9 +134,18 @@ class ProductsController extends AppController {
         return $this->redirect(array('action' => 'addView'));
     }
 
-    public function cart()
+    public function addToCart()
     {
-        $this->load->model('Cartitem');
+       
+        $cartId = $this->Session->read('cartId');
+
+        $db = ConnectionManager::getDataSource('default');
+
+        $this->set('dataitems', $db->fetchAll('SELECT products.* FROM products INNER JOIN cartitems  
+                                                WHERE products.product_id = cartitems.product_id 
+                                                AND cartitems.cart_id LIKE ? ', array($cartId))
+                                              );
+
     }
 
 	
