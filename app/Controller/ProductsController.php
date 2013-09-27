@@ -76,5 +76,21 @@ class ProductsController extends AppController {
         $this->set('ptypes', $this->Product_type->find('all'));
     }
 
+    public function add()
+    {
+        if ( $this->request->is('post')) 
+        {
+            if ( $this->Product->save($this->request->data)) 
+            {
+                $this->Session->setFlash('Tuote tallennettu!');
+                return $this->redirect(array('action' => 'addView'));
+            }
+        }
+
+        $this->Session->setFlash('Tuote ei voitu tallentaa!');
+        
+        return $this->redirect(array('action' => 'addView'));
+    }
+
 	
 }
