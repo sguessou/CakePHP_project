@@ -23,13 +23,14 @@
 
        <?php endforeach; ?> 
 
+       </tbody>
+       </table>  
+
+ 		<p><a href="/products/emptyCart" class="btn btn-danger" ><i class="icon-trash"></i>&nbsp;Tyhjennä!</a></p>     
+
 <?php elseif ( ! $dataitems) :?>
 
 	<p>No data</p>
 
 <?php endif; ?> 	
 
-       </tbody>
-       </table>  
-
- <p><a href="/products/empty" class="btn btn-danger" ><i class="icon-trash"></i>&nbsp;Tyhjennä!</a></p>      

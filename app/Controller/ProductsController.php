@@ -148,5 +148,18 @@ class ProductsController extends AppController {
 
     }
 
+    public function emptyCart()
+    {
+        $this->loadModel('Cartitem');
+
+        $cartId = $this->Session->read('cartId');
+
+        $conditions = array('Cartitem.cart_id' => $cartId);
+
+        $this->Cartitem->deleteAll($conditions, false);
+        
+        return $this->redirect(array('action' => 'index'));
+    }
+
 	
 }
