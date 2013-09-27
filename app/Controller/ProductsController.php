@@ -3,15 +3,17 @@
 
 class ProductsController extends AppController {
 
-	public $helpers = array('Html', 'Form' => array('className' => 'BootstrapForm'));
+	public $helpers = array('Html', 'Form' => array('className' => 'BootstrapForm'), 'Js' => array('Jquery'));
 
 	public function index()
 	{
 		$this->set('title_for_layout', 'Verkkokauppa');
         
-        $this->loadModel('Product_type');
+        $this->loadModel('Product_type', 'Cartitem');
 
         $this->set('ptypes', $this->Product_type->find('all'));
+
+        $this->set('cartItems', $this->Cartitem->find('all', array()));
 
         $this->pageTitle = 'Verkkokauppa';
 	}
@@ -88,8 +90,13 @@ class ProductsController extends AppController {
         }
 
         $this->Session->setFlash('Tuote ei voitu tallentaa!');
-        
+
         return $this->redirect(array('action' => 'addView'));
+    }
+
+    public function cart()
+    {
+        $this->load->model('Cartitem');
     }
 
 	
