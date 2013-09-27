@@ -7,11 +7,12 @@
           <li><a href="/products/addView">Lisää tuote</a></li>
         </ul>
      <h3 class="text-muted">Verkkokauppa</h3>
-    </div>   
+    </div>
 
-      <div class="jumbotron">
-        <h1>Verkkokauppa</h1>        
-      </div>
+   
+    <div class="jumbotron">
+      <h1>Verkkokauppa</h1>        
+    </div>
 
       <br />
       <br />

@@ -15,13 +15,16 @@
       </div>
 
       <br />
+      <div id="success"></div>
       <br />
 
       <div class="header"> 
         <h3 class="text-muted">Haun Tulos:</h3>
       </div>
 
-  <?php if ( !$products) :?>
+
+
+<?php if ( ! $products) :?>
 
         <div class="alert alert-info">
             <strong>Huomio!</strong> Sinun hakusi ei tuottanut yhtään tulosta.
@@ -34,20 +37,38 @@
        <tr>
           <th>#</th>
           <th>Tuotenimi</th>
-          <th><i class="icon-shopping-cart icon-large"></i></th>
+          <th></th>
        </tr>
        </thead>
        <tbody>
   
-      <?php
+      <?php $num = 1; ?>
         
-        $num = 1;
+       <?php foreach ($products as $product) :?>
         
-        foreach ($products as $product)
-        {
-          echo '<tr><td>' . $num++ . '</td><td><a data-toggle="modal" href="#modal_' . $product['Product']['product_id'] . '">' . $product['Product']['product_name'].'</a></td><td><a href=""><i class="icon-plus"></i>&nbsp;Lisää ostoskoriin</a></td></tr>';
+          <tr><td><?php echo $num++; ?></td>
+          <td><a data-toggle="modal" href="#modal_<?php echo $product['Product']['product_id']; ?>">   
+           <?php echo $product['Product']['product_name']; ?></a></td>
+          <td>
+          <?php echo $this->Form->create(); ?>
+          
+          <?php echo $this->Form->input('Cartitem.product_id', array(
+                                                                     'type' => 'hidden', 
+                                                                     'value' => $product['Product']['product_id'])); ?>
+
+          <?php echo $this->Form->input('Cartitem.cart_id', array(
+                                                                     'type' => 'hidden', 
+                                                                     'value' => $this->Session->read('cartId'))); ?>       
+
+          <?php echo $this->Js->submit('Lisää ostoskoriin', array('update' => '#success')); ?>
+          
+          <?php echo $this->Form->end(); ?>
+
+          </td>
+          </tr>
         
-      ?> 
+        
+
       <!-- Modal -->  
       <?php if ( $product['Product']['ptype_id'] == 1):?>
 
@@ -117,13 +138,13 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
    
-   <?php endif ?> 
+   <?php endif; ?> 
     
-    <?php } ?>
+   <?php endforeach; ?> 
     
     </tbody>  
     </table>   
 
-<?php endif ?>      
+<?php endif; ?>      
 
     
