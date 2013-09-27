@@ -25,8 +25,8 @@
     <div class="container-narrow">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li><a href="/products/index">Hakukone</a></li>
-          <li><a href="/products/addView">Lisää tuote</a></li>
+          <li><a href="/products/index">Tuotehaku</a></li>
+          <li class="active"><a href="/products/addView">Lisää tuote</a></li>
         </ul>
      <h3 class="text-muted">Verkkokauppa</h3>
     </div>   
@@ -34,6 +34,13 @@
       <div class="jumbotron">
         <h1>Verkkokauppa</h1>        
       </div>
+
+      <?php
+        $stuff = $this->Session->read('stuff');
+
+        var_dump($stuff);
+
+      ?>
 
       <br />
       <br />

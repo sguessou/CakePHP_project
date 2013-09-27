@@ -24,7 +24,7 @@
     <div class="container-narrow">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="/products/index">Hakukone</a></li>
+          <li class="active"><a href="/products/index">Tuotehaku</a></li>
           <li><a href="/products/addView">Lisää tuote</a></li>
         </ul>
      <h3 class="text-muted">Verkkokauppa</h3>

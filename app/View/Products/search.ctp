@@ -25,7 +25,7 @@
     <div class="container-narrow">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li><a href="/products/index">Hakukone</a></li>
+          <li><a href="/products/index">Tuotehaku</a></li>
           <li><a href="/products/addView">Lisää tuote</a></li>
         </ul>
      <h3 class="text-muted">Verkkokauppa</h3>
@@ -66,7 +66,7 @@
         
         foreach ($products as $product)
         {
-          echo '<tr><td>' . $num++ . '</td><td><a data-toggle="modal" href="#modal_' . $product['Product']['product_id'] . '">' . $product['Product']['product_name'].'</a></td><td><a href=""><i class="icon-plus"></i>&nbsp;Add to cart</a></td></tr>';
+          echo '<tr><td>' . $num++ . '</td><td><a data-toggle="modal" href="#modal_' . $product['Product']['product_id'] . '">' . $product['Product']['product_name'].'</a></td><td><a href=""><i class="icon-plus"></i>&nbsp;Lisää ostoskoriin</a></td></tr>';
         
       ?> 
       <!-- Modal -->  
