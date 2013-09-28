@@ -15,7 +15,7 @@
       </div>
 
       <br />
-      <div id="success"></div>
+      <div id="cartData"></div>
       <br />
 
       <div class="header"> 
@@ -60,7 +60,7 @@
                                                                      'type' => 'hidden', 
                                                                      'value' => $this->Session->read('cartId'))); ?>       
 
-          <?php echo $this->Js->submit('Lisää ostoskoriin', array('update' => '#success')); ?>
+          <?php echo $this->Js->submit('Lisää ostoskoriin', array('update' => '#cartData')); ?>
           
           <?php echo $this->Form->end(); ?>
 
