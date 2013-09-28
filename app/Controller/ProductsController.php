@@ -10,6 +10,8 @@ class ProductsController extends AppController {
 
 	public function index()
 	{
+        $this->logUser('Index page');
+
 		$this->set('title_for_layout', 'Verkkokauppa');
         
         $this->loadModel('Product_type');
@@ -39,11 +41,12 @@ class ProductsController extends AppController {
 
     public function search()
     {
+
         $this->set('title_for_layout', 'Haun Tulos');
 
       if ( ! $this->RequestHandler->isAjax())
       {
-
+            $this->logUser('Search product');
 
         if ( $this->data['Product']['product_name'] && ! $this->data['order'])
         {
@@ -97,6 +100,8 @@ class ProductsController extends AppController {
             {
                     if ($this->RequestHandler->isAjax())
                     {
+                        $this->logUser('Ajax');
+
                         $this->set('dataitems', $db->fetchAll('SELECT products.* FROM products INNER JOIN cartitems  
                                                                 WHERE products.product_id = cartitems.product_id 
                                                                 AND cartitems.cart_id LIKE ? ', array($cartId)));
@@ -120,6 +125,8 @@ class ProductsController extends AppController {
 
     public function add()
     {
+        $this->logUser('Add product');
+
         if ( $this->request->is('post')) 
         {
             if ( $this->Product->save($this->request->data)) 
@@ -150,6 +157,8 @@ class ProductsController extends AppController {
 
     public function emptyCart()
     {
+        $this->logUser('Empty cart');
+
         $this->loadModel('Cartitem');
 
         $cartId = $this->Session->read('cartId');
@@ -159,6 +168,20 @@ class ProductsController extends AppController {
         $this->Cartitem->deleteAll($conditions, false);
         
         return $this->redirect(array('action' => 'index'));
+    }
+
+    public function logUser($action)
+    {
+        $this->loadModel('Accesslog');
+
+        $this->Accesslog->create();
+        $this->Accesslog->set('url', $action);
+        $this->Accesslog->set('ip', $_SERVER['REMOTE_ADDR']);
+        $this->Accesslog->set('host', gethostbyaddr( $_SERVER['REMOTE_ADDR'] ));
+        $this->Accesslog->set('accessed_at', date("Y-m-d H:i:s"));
+        $this->Accesslog->save();
+
+        return;
     }
 
 	
