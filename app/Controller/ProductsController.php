@@ -92,8 +92,8 @@ class ProductsController extends AppController {
         {
             $products = $this->Product->find('all', array('conditions' => 
                                                         array('Product.product_name LIKE' => $value,
-                                                              'Product.ptype_id' => $productTypeId,
-                                                              'order' => array('Product.product_name ASC'))
+                                                              'Product.ptype_id' => $productTypeId),
+                                                              'order' => array('Product.product_name ASC')
                                                ));
         }
         else
