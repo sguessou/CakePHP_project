@@ -10,13 +10,14 @@ class ProductsController extends AppController {
 
 	public function index()
 	{
-        $this->logUser('Index page');
+        $db = ConnectionManager::getDataSource('default');
+
+        $this->logUser('Index');
 
 		$this->set('title_for_layout', 'Verkkokauppa');
         
         $this->loadModel('Product_type');
-        $this->loadModel('Cartitem');
-
+        
         $this->set('ptypes', $this->Product_type->find('all'));
 
         // If cart_id is in the session, get it from there 
@@ -30,11 +31,9 @@ class ProductsController extends AppController {
             $this->Session->write('cartId', $cart_id);
         }
 
-        $this->set('cartItems', $this->Cartitem->find('all', array(
-                                         'conditions' => array('Cartitem.cart_id LIKE' => $cart_id),
-                                         'fields' => array('SUM(Cartitem.quantity) AS cnt'),
-                                         'group' => 'Cartitem.cart_id'           
-                                                      )));
+        $count = $db->fetchAll('SELECT COUNT(*) as cnt FROM cartitems WHERE cart_id LIKE ?', array($cart_id));
+
+        $this->set('count', (int) $count[0][0]['cnt']);
 
         $this->pageTitle = 'Verkkokauppa';
 	}
@@ -64,7 +63,7 @@ class ProductsController extends AppController {
            
         $this->loadModel('Cartitem');
 
-        if ($this->Cartitem->save($this->data))
+        if ( $this->Cartitem->save($this->data))
         {
             $this->logUser('Ajax');
             
@@ -79,8 +78,6 @@ class ProductsController extends AppController {
 
     public function searchEngine($fieldName, $orderByName, $productTypeId)
     {
-        //$db = ConnectionManager::getDataSource('default');
-
         $value = '%';
 
         if ( $fieldName)
@@ -95,15 +92,13 @@ class ProductsController extends AppController {
                                                               'Product.ptype_id' => $productTypeId),
                                                               'order' => array('Product.product_name ASC')
                                                ));
-        }
-        else
-        {
-            $products = $this->Product->find('all', array('conditions' => 
+            return $products;
+        }    
+           
+        $products = $this->Product->find('all', array('conditions' => 
                                                             array('Product.product_name LIKE' =>  $value,
                                                                   'Product.ptype_id' => $productTypeId )
                                                ));
-        }
-           
         return $products;
 
     }//End method searchEngine
