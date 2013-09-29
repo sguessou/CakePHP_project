@@ -11,10 +11,25 @@
 
    
     <div class="jumbotron">
-      <h1>Verkkokauppa</h1>        
+      <h1>Verkkokauppa&nbsp;<small>&copy;</small></h1>        
     </div>
 
       <br />
+
+      <?php if ( ! $count) :?>
+        <div class="alert alert-info">
+           <i class="icon-shopping-cart icon-large"></i>&nbsp;Ostoskorisi on tyhjä!
+        </div>
+      <?php elseif ($count == 1) :?>
+        <div class="alert alert-info">
+          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuote
+        </div>
+       <?php elseif ($count > 1) :?>
+        <div class="alert alert-info">
+          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuotetta
+        </div>  
+      <?php endif ?>   
+      
       <br />
 
       <div class="header"> 
