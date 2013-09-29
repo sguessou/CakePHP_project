@@ -21,6 +21,7 @@ class ProductsController extends AppController {
 
         // If cart_id is in the session, get it from there 
         $cart_id = $this->Session->read('cartId');
+
         // If not we generate a new one and save it in the session
         if (! $cart_id)
         {
@@ -38,81 +39,74 @@ class ProductsController extends AppController {
         $this->pageTitle = 'Verkkokauppa';
 	}
 
-
+    
     public function search()
     {
-
         $this->set('title_for_layout', 'Haun Tulos');
 
-      if ( ! $this->RequestHandler->isAjax())
-      {
-            $this->logUser('Search product');
+        $db = ConnectionManager::getDataSource('default');
 
-        if ( $this->data['Product']['product_name'] && ! $this->data['order'])
+        $cartId = $this->Session->read('cartId');
+
+
+        if ( ! $this->RequestHandler->isAjax())
         {
-            $products = $this->Product->find('all', 
-                array('conditions' => 
-                              array('Product.product_name LIKE' => '%'.strtoupper($this->data['Product']['product_name']).'%',
-                                    'Product.ptype_id' => (int) $this->data['Product']['ptype_id'])
-                                           ));
+            $this->logUser('Search');
 
-            $this->set('products', $products);
-        }
-        //select query + order by product_name asc
-        elseif ( $this->data['Product']['product_name'] && $this->data['order'])
-        {
-            $products = $this->Product->find('all', 
-                array('conditions' => 
-                              array('Product.product_name LIKE' => '%'.strtoupper($this->data['Product']['product_name']).'%',
-                                    'Product.ptype_id' => (int) $this->data['Product']['ptype_id']),
-                       'order' => array('Product.product_name ASC')
-                                           ));
-
-            $this->set('products', $products);
-        }
-        elseif ( ! $this->data['Product']['product_name'] && ! $this->data['order']) 
-        {
-            $products = $this->Product->find('all', 
-                         array('conditions' => array('Product.ptype_id' => (int) $this->data['Product']['ptype_id'])
-                    ));
-
-            $this->set('products', $products);
-        }
-        //select query + order by product_name asc
-        elseif ( ! $this->data['Product']['product_name'] && $this->data['order']) 
-        {
-            $products = $this->Product->find('all', 
-                         array('conditions' => array( 'Product.ptype_id' => (int) $this->data['Product']['ptype_id'] ),
-                               'order' => array('Product.product_name ASC')
-                               ));
-
-            $this->set('products', $products);
-        }
-     }//End outer if
-       
-            $this->loadModel('Cartitem');
+            $fieldName = $this->data['Product']['product_name'];
+            $orderByName =  $this->data['order'];
+            $productTypeId = (int) $this->data['Product']['ptype_id'];
             
-            $db = ConnectionManager::getDataSource('default');
+            $products = $this->searchEngine($fieldName, $orderByName, $productTypeId);
 
-            $cartId = $this->Session->read('cartId');
+            $this->set('products', $products);
+        }
+           
+        $this->loadModel('Cartitem');
 
-            if ($this->Cartitem->save($this->data))
-            {
-                    if ($this->RequestHandler->isAjax())
-                    {
-                        $this->logUser('Ajax');
-
-                        $this->set('dataitems', $db->fetchAll('SELECT products.* FROM products INNER JOIN cartitems  
-                                                                WHERE products.product_id = cartitems.product_id 
-                                                                AND cartitems.cart_id LIKE ? ', array($cartId)));
-                        $this->render('add_to_cart', 'ajax');
-                    }
+        if ($this->Cartitem->save($this->data))
+        {
+            $this->logUser('Ajax');
+            
+            $this->set('dataitems', $db->fetchAll('SELECT products.* FROM products INNER JOIN cartitems  
+                                                   WHERE products.product_id = cartitems.product_id 
+                                                   AND cartitems.cart_id LIKE ? ', array($cartId)));
                 
-             }   
-    
-        $this->pageTitle = 'Haun Tulos';          
-    
+            $this->render('add_to_cart', 'ajax');    
+        }
+        
     }//End method search
+
+    public function searchEngine($fieldName, $orderByName, $productTypeId)
+    {
+        //$db = ConnectionManager::getDataSource('default');
+
+        $value = '%';
+
+        if ( $fieldName)
+        {
+            $value = '%' . $fieldName . '%';        
+        }
+
+        if ( $orderByName)
+        {
+            $products = $this->Product->find('all', array('conditions' => 
+                                                        array('Product.product_name LIKE' => $value,
+                                                              'Product.ptype_id' => $productTypeId,
+                                                              'order' => array('Product.product_name ASC'))
+                                               ));
+        }
+        else
+        {
+            $products = $this->Product->find('all', array('conditions' => 
+                                                            array('Product.product_name LIKE' =>  $value,
+                                                                  'Product.ptype_id' => $productTypeId )
+                                               ));
+        }
+           
+        return $products;
+
+    }//End method searchEngine
 
 	public function addView()
     {
