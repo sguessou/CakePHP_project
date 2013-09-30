@@ -15,7 +15,42 @@
       </div>
 
       <br />
-      <div id="cartData"></div>
+
+      <div id="cartData">
+
+        <?php if ( ! $count) :?>
+        <div class="alert alert-info">
+           <i class="icon-shopping-cart icon-large"></i>&nbsp;Ostoskorisi on tyhjä!
+        </div>
+      <?php elseif ($count == 1) :?>
+        <div class="alert alert-info">
+          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuote 
+          <div class="pull-right">
+            <?php echo $this->Form->create(); ?>
+            <?php echo $this->Form->input('Form.action', array(
+                                                                     'type' => 'hidden', 
+                                                                     'value' => 'showCart')); ?>  
+            <?php echo $this->Js->submit('Näytä ostoskori', array('update' => '#cartData')); ?>
+            <?php echo $this->Form->end(); ?>
+          </div>
+          <br />&nbsp;
+        </div>
+       <?php elseif ($count > 1) :?>
+        <div class="alert alert-info">
+          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuotetta 
+          <div class="pull-right">
+            <?php echo $this->Form->create(); ?> 
+            <?php echo $this->Form->input('Form.action', array(
+                                                                     'type' => 'hidden', 
+                                                                     'value' => 'showCart')); ?> 
+            <?php echo $this->Js->submit('Näytä ostoskori', array('update' => '#cartData')); ?>
+            <?php echo $this->Form->end(); ?>
+          </div>
+          <br />&nbsp;
+        </div>  
+      <?php endif ?>  
+
+      </div> <!-- //cartData -->
       <br />
 
       <div class="header"> 
@@ -58,7 +93,11 @@
 
           <?php echo $this->Form->input('Cartitem.cart_id', array(
                                                                      'type' => 'hidden', 
-                                                                     'value' => $this->Session->read('cartId'))); ?>       
+                                                                     'value' => $this->Session->read('cartId'))); ?>  
+           <?php echo $this->Form->input('Form.action', array(
+                                                                     'type' => 'hidden', 
+                                                                     'value' => 'addProduct')); ?> 
+
 
           <?php echo $this->Js->submit('Lisää ostoskoriin', array('update' => '#cartData')); ?>
           
