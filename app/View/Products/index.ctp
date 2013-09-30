@@ -14,6 +14,7 @@
       <h1>Verkkokauppa&nbsp;<small>&copy;</small></h1>        
     </div>
 
+      <div id="viewCart"></div>
       <br />
 
       <?php if ( ! $count) :?>
@@ -22,11 +23,23 @@
         </div>
       <?php elseif ($count == 1) :?>
         <div class="alert alert-info">
-          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuote
+          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuote 
+          <div class="pull-right">
+            <?php echo $this->Form->create(); ?> 
+            <?php echo $this->Js->submit('Näytä ostoskori', array('update' => '#viewCart')); ?>
+            <?php echo $this->Form->end(); ?>
+          </div>
+          <br />&nbsp;
         </div>
        <?php elseif ($count > 1) :?>
         <div class="alert alert-info">
-          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuotetta
+          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuotetta 
+          <div class="pull-right">
+            <?php echo $this->Form->create(); ?> 
+            <?php echo $this->Js->submit('Näytä ostoskori', array('update' => '#viewCart')); ?>
+            <?php echo $this->Form->end(); ?>
+          </div>
+          <br />&nbsp;
         </div>  
       <?php endif ?>   
       
