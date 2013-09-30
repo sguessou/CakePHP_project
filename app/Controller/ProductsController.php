@@ -31,12 +31,28 @@ class ProductsController extends AppController {
             $this->Session->write('cartId', $cart_id);
         }
 
+        if ( $this->RequestHandler->isAjax())
+        {
+            $cartId = $this->Session->read('cartId');
+
+            $this->logUser('IndexAjax');
+                
+            $this->set('dataitems', $db->fetchAll('SELECT products.* FROM products INNER JOIN cartitems  
+                                                       WHERE products.product_id = cartitems.product_id 
+                                                       AND cartitems.cart_id LIKE ? ', array($cartId)));               
+            $this->render('add_to_cart', 'ajax');
+        }   
+         
+
+        
+
         $count = $db->fetchAll('SELECT COUNT(*) as cnt FROM cartitems WHERE cart_id LIKE ?', array($cart_id));
 
         $this->set('count', (int) $count[0][0]['cnt']);
 
         $this->pageTitle = 'Verkkokauppa';
-	}
+        
+    }//End method index
 
     
     public function search()
