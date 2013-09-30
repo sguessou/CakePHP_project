@@ -40,13 +40,11 @@ class ProductsController extends AppController {
                 
             $this->set('dataitems', $db->fetchAll('SELECT products.* FROM products INNER JOIN cartitems  
                                                        WHERE products.product_id = cartitems.product_id 
-                                                       AND cartitems.cart_id LIKE ? ', array($cartId)));               
+                                                       AND cartitems.cart_id LIKE ? ', array($cartId)));   
+
             $this->render('add_to_cart', 'ajax');
         }   
          
-
-        
-
         $count = $db->fetchAll('SELECT COUNT(*) as cnt FROM cartitems WHERE cart_id LIKE ?', array($cart_id));
 
         $this->set('count', (int) $count[0][0]['cnt']);
@@ -65,7 +63,7 @@ class ProductsController extends AppController {
         $cartId = $this->Session->read('cartId');
 
 
-        if ( ! $this->RequestHandler->isAjax())
+        if ( isset($this->data['Product']['product_name'])) 
         {
             $this->logUser('Search');
 
@@ -81,13 +79,13 @@ class ProductsController extends AppController {
 
             $this->set('count', (int) $count[0][0]['cnt']);
         }
-           
-        $this->loadModel('Cartitem');
 
-        if ( isset($this->data['Form']['action']) )
+        if ( $this->RequestHandler->isAjax())
         {
             if ( $this->data['Form']['action'] == 'addProduct')
             {
+                $this->loadModel('Cartitem');
+                
                 if ( $this->Cartitem->save($this->data))
                 {
                     $cartId = $this->Session->read('cartId');
@@ -97,22 +95,23 @@ class ProductsController extends AppController {
                     $this->set('dataitems', $db->fetchAll('SELECT products.* FROM products INNER JOIN cartitems  
                                                            WHERE products.product_id = cartitems.product_id 
                                                            AND cartitems.cart_id LIKE ? ', array($cartId)));
-                        
+
                     $this->render('add_to_cart', 'ajax');    
                 }
             }
             elseif ( $this->data['Form']['action'] == 'showCart')
             {
-                $this->logUser('Ajax-add');
+                $this->logUser('Ajax-show');
 
                 $cartId = $this->Session->read('cartId');
                     
                 $this->set('dataitems', $db->fetchAll('SELECT products.* FROM products INNER JOIN cartitems  
                                                        WHERE products.product_id = cartitems.product_id 
                                                        AND cartitems.cart_id LIKE ? ', array($cartId)));
-                        
+      
                 $this->render('add_to_cart', 'ajax');        
             } 
+            
         }    
 
     }//End method search

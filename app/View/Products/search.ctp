@@ -85,7 +85,7 @@
           <td><a data-toggle="modal" href="#modal_<?php echo $product['Product']['product_id']; ?>">   
            <?php echo $product['Product']['product_name']; ?></a></td>
           <td>
-          <?php echo $this->Form->create(); ?>
+          <?php echo $this->Form->create('Product', array('action' => 'search')); ?>
           
           <?php echo $this->Form->input('Cartitem.product_id', array(
                                                                      'type' => 'hidden', 

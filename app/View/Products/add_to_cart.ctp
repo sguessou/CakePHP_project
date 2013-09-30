@@ -27,7 +27,9 @@
        </tbody>
        </table>  
 
- 		<p><a href="/products/emptyCart" class="btn btn-danger" ><i class="icon-trash"></i>&nbsp;Tyhjennä!</a></p>     
+ 		<p><a href="/products/emptyCart" class="btn btn-danger" ><i class="icon-trash"></i>&nbsp;Tyhjennä!</a></p>
+
+            
 
 
 <?php elseif ( ! $dataitems) :?>
