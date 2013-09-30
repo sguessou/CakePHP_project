@@ -24,7 +24,7 @@
 	echo $this->fetch('css');
 	echo $this->fetch('script');
 
-	echo $this->Js->writeBuffer(array('cache' => TRUE));
+	echo $this->Js->writeBuffer(array('cache' => FALSE));
 
 	?>
 	<!-- Font-Awesome CDN-->  
