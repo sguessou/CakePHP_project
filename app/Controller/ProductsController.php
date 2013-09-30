@@ -85,7 +85,7 @@ class ProductsController extends AppController {
             if ( $this->data['Form']['action'] == 'addProduct')
             {
                 $this->loadModel('Cartitem');
-                
+
                 if ( $this->Cartitem->save($this->data))
                 {
                     $cartId = $this->Session->read('cartId');
@@ -177,9 +177,12 @@ class ProductsController extends AppController {
 
         $db = ConnectionManager::getDataSource('default');
 
-        $this->set('dataitems', $db->fetchAll('SELECT products.* FROM products INNER JOIN cartitems  
-                                                WHERE products.product_id = cartitems.product_id 
-                                                AND cartitems.cart_id LIKE ? ', array($cartId))
+        $this->set('dataitems', $db->fetchAll('SELECT products.* , product_types.type_name as typeName FROM products 
+                                                INNER JOIN cartitems
+                                                INNER JOIN product_types  
+                                                WHERE products.product_id = cartitems.product_id
+                                                AND products.ptype_id = product_types.ptype_id 
+                                                AND cartitems.cart_id LIKE ?', array($cartId))
                                               );
 
     }
