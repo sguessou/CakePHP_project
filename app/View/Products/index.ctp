@@ -14,7 +14,10 @@
       <h1>Verkkokauppa&nbsp;<small>&copy;</small></h1>        
     </div>
 
-      <div id="viewCart"></div>
+    
+    <div id="viewCart">
+    
+
       <br />
 
       <?php if ( ! $count) :?>
@@ -41,7 +44,9 @@
           </div>
           <br />&nbsp;
         </div>  
-      <?php endif ?>   
+      <?php endif ?>  
+
+      </div><!-- //viewCart--> 
       
       <br />
 
