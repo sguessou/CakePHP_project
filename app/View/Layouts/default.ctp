@@ -13,7 +13,8 @@
 	<?php
 
 	echo $this->Html->css('bootstrap.min'); 
-	echo $this->Html->css('jumbotron-narrow'); 
+	//echo $this->Html->css('jumbotron-narrow'); 
+	echo $this->Html->css('simple-sidebar'); 
 	echo $this->Html->css('modal_img'); 
 
 	echo $this->Html->script('jquery'); 
@@ -38,19 +39,16 @@
 	<?php echo $this->fetch('content'); ?>
 
 
-
+<!--
  <div class="footer">
  <p>&copy; Verkkokauppa 2013</p>
  </div>
- </div> <!-- /container -->
+ <!-- </div> <!-- /container --> 
 
 <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-<?php
-	
-	
-?>
+
 
 </body>
 </html>

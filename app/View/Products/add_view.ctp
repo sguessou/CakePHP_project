@@ -11,7 +11,7 @@
     </div>   
 
       <div class="jumbotron">
-        <h1>Verkkokauppa</h1>        
+        <h1>Verkkokauppa&nbsp;<small>&copy;</small></h1>        
       </div>
 
       <?php
