@@ -14,7 +14,7 @@
 
 	echo $this->Html->css('bootstrap.min'); 
 	//echo $this->Html->css('jumbotron-narrow'); 
-	echo $this->Html->css('simple-sidebar'); 
+	echo $this->Html->css('half-slider'); 
 	echo $this->Html->css('modal_img'); 
 
 	echo $this->Html->script('jquery'); 
@@ -39,16 +39,21 @@
 	<?php echo $this->fetch('content'); ?>
 
 
-<!--
- <div class="footer">
- <p>&copy; Verkkokauppa 2013</p>
- </div>
- <!-- </div> <!-- /container --> 
+	<hr>
+      
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright &copy; Company 2013 &middot; Facebook &middot; Twitter &middot; Google+</p>
+          </div>
+        </div>
+      </footer>
 
-<!-- Le javascript
-    ================================================== -->
+    </div><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript -->
     <!-- Placed at the end of the document so the pages load faster -->
-
-
-</body>
+    <!-- Make sure to add jQuery - download the most recent version at http://jquery.com/ -->
+    
+  </body>
 </html>
