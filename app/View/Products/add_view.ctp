@@ -1,26 +1,4 @@
 
-    <div class="container-narrow">
-
-    <div class="container-narrow">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="/products/index">Tuotehaku</a></li>
-          <li class="active"><a href="/products/addView">Lisää tuote</a></li>
-        </ul>
-     <h3 class="text-muted">Verkkokauppa</h3>
-    </div>   
-
-      <div class="jumbotron">
-        <h1>Verkkokauppa&nbsp;<small>&copy;</small></h1>        
-      </div>
-
-      <?php
-        $stuff = $this->Session->read('stuff');   
-
-      ?>
-
-      <br />
-      <br />
 
       <div class="header"> 
         <h3 class="text-muted">Lisää Tuote:</h3>

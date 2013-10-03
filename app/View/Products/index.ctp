@@ -1,52 +1,50 @@
 
-
-    <div class="container-narrow">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="/products/index">Tuotehaku</a></li>
-          <li><a href="/products/addView">Lisää tuote</a></li>
-        </ul>
-     <h3 class="text-muted">Verkkokauppa</h3>
-    </div>
-
+  
    
-    <div class="jumbotron">
-      <h1>Verkkokauppa&nbsp;<small>&copy;</small></h1>        
-    </div>
+         
 
-    
-    <div id="viewCart">
-    
+          
 
-      <br />
+       <div id="viewCart">
+          
+          <?php if ( ! $count) :?>
+            <div class="alert alert-info">
+               <i class="icon-shopping-cart icon-large"></i>&nbsp;Ostoskorisi on tyhjä!
+            </div>
 
-      <?php if ( ! $count) :?>
-        <div class="alert alert-info">
-           <i class="icon-shopping-cart icon-large"></i>&nbsp;Ostoskorisi on tyhjä!
-        </div>
-      <?php elseif ($count == 1) :?>
-        <div class="alert alert-info">
-          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuote 
-          <div class="pull-right">
-            <?php echo $this->Form->create(); ?> 
-            <?php echo $this->Js->submit('Näytä ostoskori', array('update' => '#viewCart')); ?>
-            <?php echo $this->Form->end(); ?>
-          </div>
-          <br />&nbsp;
-        </div>
-       <?php elseif ($count > 1) :?>
-        <div class="alert alert-info">
-          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuotetta 
-          <div class="pull-right">
-            <?php echo $this->Form->create(); ?> 
-            <?php echo $this->Js->submit('Näytä ostoskori', array('update' => '#viewCart')); ?>
-            <?php echo $this->Form->end(); ?>
-          </div>
-          <br />&nbsp;
-        </div>  
-      <?php endif ?>  
+          <?php elseif ($count == 1) :?>
 
-      </div><!-- //viewCart--> 
+            <div class="alert alert-info">
+              <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuote 
+              <div>
+                <?php echo $this->Form->create('Products', array('action' => 'test')); ?> 
+                <?php echo $this->Js->submit('Näytä ostoskori', array('update' => '#viewCart')); ?>
+                <?php echo $this->Form->end(); ?>
+              </div>
+              <br />&nbsp;
+            </div>
+
+           <?php elseif ($count > 1) :?>
+            
+            <div class="alert alert-info">
+
+              <div class="row">
+              <br />
+              <div class="col-lg-3">
+                <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuotetta 
+              </div>
+               <div class="col-lg-3">
+                <?php echo $this->Form->create(); ?> 
+                <?php echo $this->Js->submit('Näytä ostoskori', array('update' => '#viewCart')); ?>
+                <?php echo $this->Form->end(); ?>
+               </div>
+              </div>
+             
+            </div>
+          
+          <?php endif ?>  
+
+       </div><!--//End viewCart-->
       
       <br />
 
@@ -84,19 +82,8 @@
        <br />
 
        <?php echo $this->BootstrapForm->end('Etsi Tuoteitta'); ?>
-      
-       
-       
-       <br /><br />
-
-       
-
-      
-    
-      
-
-    
 
 
-
-    
+        </div>
+      </div>
+ 
