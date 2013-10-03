@@ -1,40 +1,90 @@
 
     
-      <div id="cartData">
-
-        <?php if ( ! $count) :?>
-        <div class="alert alert-info">
-           <i class="icon-shopping-cart icon-large"></i>&nbsp;Ostoskorisi on tyhjä!
+      <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/products/index">Verkkokauppa</a>
         </div>
-      <?php elseif ($count == 1) :?>
-        <div class="alert alert-info">
-          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuote 
-          <div class="pull-right">
-            <?php echo $this->Form->create(); ?>
-            <?php echo $this->Form->input('Form.action', array(
-                                                                     'type' => 'hidden', 
-                                                                     'value' => 'showCart')); ?>  
-            <?php echo $this->Js->submit('Näytä ostoskori', array('update' => '#cartData')); ?>
-            <?php echo $this->Form->end(); ?>
-          </div>
-          <br />&nbsp;
-        </div>
-       <?php elseif ($count > 1) :?>
-        <div class="alert alert-info">
-          <i class="icon-shopping-cart icon-large"></i>&nbsp;Sisältö <strong><?php echo $count; ?></strong> tuotetta 
-          <div class="pull-right">
-            <?php echo $this->Form->create(); ?> 
-            <?php echo $this->Form->input('Form.action', array(
-                                                                     'type' => 'hidden', 
-                                                                     'value' => 'showCart')); ?> 
-            <?php echo $this->Js->submit('Näytä ostoskori', array('update' => '#cartData')); ?>
-            <?php echo $this->Form->end(); ?>
-          </div>
-          <br />&nbsp;
-        </div>  
-      <?php endif ?>  
 
-      </div> <!-- //cartData -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/products/index">Tuotehaku</a></li>
+            <li><a href="/products/addView">Lisää tuote</a></li>
+          </ul>
+
+          <p class="navbar-text pull-right">
+          
+           <?php if ($count > 0) :?>
+
+
+            <i class="icon-shopping-cart"></i>&nbsp;<?php echo $this->Js->link('Näytä sisältö',
+                                                                               array('controller' => 'products',
+                                                                                     'action' => 'search',
+                                                                                     'showCart'
+                                                                                     ),
+                                                                               array('update' => '#cartData')
+                                                                          ); ?>
+          <?php endif ?>   
+          </p>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
+    
+    <div id="myCarousel" class="carousel slide">
+      <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Verkkokauppa');"></div>
+            <div class="carousel-caption">
+              <h1>Tervetuloa verkkokauppaan!</h1>
+            </div>
+          </div>
+          <div class="item">
+            <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
+            <div class="carousel-caption">
+              <h1>Caption 2</h1>
+            </div>
+          </div>
+          <div class="item">
+            <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
+            <div class="carousel-caption">
+              <h1>Caption 3</h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+          <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+          <span class="icon-next"></span>
+        </a>
+    </div>
+
+    <div class="container">
+
+      <div class="row section">
+        <div class="col-lg-2"></div>
+         <div class="col-lg-8">
+
+
+
+      <div id="cartData"></div>
       <br />
 
       <div class="header"> 
@@ -69,24 +119,23 @@
           <td><a data-toggle="modal" href="#modal_<?php echo $product['Product']['product_id']; ?>">   
            <?php echo $product['Product']['product_name']; ?></a></td>
           <td>
-          <?php echo $this->Form->create('Product', array('action' => 'search')); ?>
+            <?php echo $this->Form->create('Product', array('action' => 'search')); ?>
           
-          <?php echo $this->Form->input('Cartitem.product_id', array(
-                                                                     'type' => 'hidden', 
-                                                                     'value' => $product['Product']['product_id'])); ?>
+            <?php echo $this->Form->input('Cartitem.product_id', array(
+                                                                       'type' => 'hidden', 
+                                                                       'value' => $product['Product']['product_id'])); ?>
 
-          <?php echo $this->Form->input('Cartitem.cart_id', array(
-                                                                     'type' => 'hidden', 
-                                                                     'value' => $this->Session->read('cartId'))); ?>  
-           <?php echo $this->Form->input('Form.action', array(
-                                                                     'type' => 'hidden', 
-                                                                     'value' => 'addProduct')); ?> 
+            <?php echo $this->Form->input('Cartitem.cart_id', array(
+                                                                       'type' => 'hidden', 
+                                                                       'value' => $this->Session->read('cartId'))); ?>  
+             <?php echo $this->Form->input('Form.action', array(
+                                                                       'type' => 'hidden', 
+                                                                       'value' => 'addProduct')); ?> 
 
 
-          <?php echo $this->Js->submit('Lisää ostoskoriin', array('update' => '#cartData')); ?>
-          
-          <?php echo $this->Form->end(); ?>
+            <?php echo $this->Js->submit('Lisää ostoskoriin', array('update' => '#cartData')); ?>
 
+            <?php echo $this->Form->end(); ?>
           </td>
           </tr>
         

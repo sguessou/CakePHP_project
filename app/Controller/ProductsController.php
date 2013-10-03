@@ -57,7 +57,7 @@ class ProductsController extends AppController {
     }//End method index
 
     
-    public function search()
+    public function search($action = NULL)
     {
         $this->set('title_for_layout', 'Haun Tulos');
 
@@ -83,45 +83,44 @@ class ProductsController extends AppController {
             $this->set('count', (int) $count[0][0]['cnt']);
         }
 
-        if ( $this->RequestHandler->isAjax())
-        {
-            if ( $this->data['Form']['action'] == 'addProduct')
+        if ( $this->RequestHandler->isAjax() && ! empty($this->data))
+        { 
+            $this->loadModel('Cartitem');
+            
+            if ( $this->Cartitem->save($this->data))
             {
-                $this->loadModel('Cartitem');
-
-                if ( $this->Cartitem->save($this->data))
-                {
-                    $cartId = $this->Session->read('cartId');
-
-                    $this->logUser('Ajax-add');
-                    
-                    $this->set('dataitems', $db->fetchAll('SELECT products.* , product_types.type_name as typeName FROM products 
-                                                           INNER JOIN cartitems
-                                                           INNER JOIN product_types  
-                                                           WHERE products.product_id = cartitems.product_id
-                                                           AND products.ptype_id = product_types.ptype_id 
-                                                           AND cartitems.cart_id LIKE ?', array($cartId)));
-
-                    $this->render('add_to_cart', 'ajax');    
-                }
-            }
-            elseif ( $this->data['Form']['action'] == 'showCart')
-            {
-                $this->logUser('Ajax-show');
-
                 $cartId = $this->Session->read('cartId');
-                    
+
+                $this->logUser('Ajax-add');
+                        
                 $this->set('dataitems', $db->fetchAll('SELECT products.* , product_types.type_name as typeName FROM products 
                                                        INNER JOIN cartitems
                                                        INNER JOIN product_types  
                                                        WHERE products.product_id = cartitems.product_id
                                                        AND products.ptype_id = product_types.ptype_id 
                                                        AND cartitems.cart_id LIKE ?', array($cartId)));
-      
-                $this->render('add_to_cart', 'ajax');        
-            } 
+                $this->render('add_to_cart', 'ajax');                   
+            }  
+        } 
+
+        if ( $this->RequestHandler->isAjax() && $action)
+        {
             
-        }    
+                $this->logUser('Ajax-show');
+
+                $cartId = $this->Session->read('cartId');
+                        
+                $this->set('dataitems', $db->fetchAll('SELECT products.* , product_types.type_name as typeName FROM products 
+                                                       INNER JOIN cartitems
+                                                       INNER JOIN product_types  
+                                                       WHERE products.product_id = cartitems.product_id
+                                                       AND products.ptype_id = product_types.ptype_id 
+                                                       AND cartitems.cart_id LIKE ?', array($cartId)));
+          
+                $this->render('add_to_cart', 'ajax');        
+            
+        }  
+ 
 
     }//End method search
 
@@ -225,51 +224,7 @@ class ProductsController extends AppController {
         return;
     }
 
-    public function test()
-    {
-        $db = ConnectionManager::getDataSource('default');
 
-        $this->logUser('Index');
-
-        $this->set('title_for_layout', 'Verkkokauppa');
-        
-        $this->loadModel('Product_type');
-        
-        $this->set('ptypes', $this->Product_type->find('all'));
-
-        // If cart_id is in the session, get it from there 
-        $cart_id = $this->Session->read('cartId');
-
-        // If not we generate a new one and save it in the session
-        if (! $cart_id)
-        {
-            $cart_id = md5( uniqid(rand(), true) );
-
-            $this->Session->write('cartId', $cart_id);
-        }
-
-        if ( $this->RequestHandler->isAjax())
-        {
-            $cartId = $this->Session->read('cartId');
-
-            $this->logUser('IndexAjax');
-                
-            $this->set('dataitems', $db->fetchAll('SELECT products.* , product_types.type_name as typeName FROM products 
-                                                   INNER JOIN cartitems
-                                                   INNER JOIN product_types  
-                                                   WHERE products.product_id = cartitems.product_id
-                                                   AND products.ptype_id = product_types.ptype_id 
-                                                   AND cartitems.cart_id LIKE ?', array($cartId)));   
-
-            $this->render('add_to_cart', 'ajax');
-        }   
-         
-        $count = $db->fetchAll('SELECT COUNT(*) as cnt FROM cartitems WHERE cart_id LIKE ?', array($cart_id));
-
-        $this->set('count', (int) $count[0][0]['cnt']);
-
-        $this->pageTitle = 'Verkkokauppa';
-    }
 
 	
 }
