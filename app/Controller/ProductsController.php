@@ -152,12 +152,14 @@ class ProductsController extends AppController {
     }//End method searchEngine
 
 	public function addView()
-    {
+    { 
         $this->set('title_for_layout', 'Verkkokauppa');
 
         $this->loadModel('Product_type');
         
         $this->set('ptypes', $this->Product_type->find('all'));
+
+        $this->pageTitle = 'Verkkokauppa';
     }
 
     public function add()
