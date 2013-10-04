@@ -226,6 +226,25 @@ class ProductsController extends AppController {
         return;
     }
 
+    public function randomProducts()
+    {
+        $db = ConnectionManager::getDataSource('default');
+        $productIds = $db->fetchAll('SELECT product_id FROM products ORDER BY product_id DESC');
+
+        $count = $db->fetchAll('SELECT COUNT(*) as cnt FROM products');
+
+        $count = (int) $count[0][0]['cnt'];
+
+        $products = array();
+
+        for ($i = 0; $i < 8; $i++)
+        {
+            $products[] = $productIds[rand(0, $count-1)];
+        }
+
+        $this->set('products', $products); 
+    }
+
 
 
 	
