@@ -77,22 +77,21 @@
     </div>
 
     <div class="container">
-
+      
       <div class="row section">
-        <div class="col-lg-2"></div>
-         <div class="col-lg-8">
 
+      <div class="col-lg-5">
+           <div id="cartData"></div>
+      </div>  
 
-
-      <div id="cartData"></div>
-      <br />
-
-      <div class="header"> 
-        <h3 class="text-muted">Haun Tulos:</h3>
-      </div>
-
-
-
+      
+      
+      <div class="col-lg-7">
+         
+      <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="icon-screenshot"></i>&nbsp;&nbsp;Haun Tulos:</h4></div>
+        <div class="panel-body">    
+     
 <?php if ( ! $products) :?>
 
         <div class="alert alert-info">
@@ -133,7 +132,7 @@
                                                                        'value' => 'addProduct')); ?> 
 
 
-            <?php echo $this->Js->submit('Lisää ostoskoriin', array('update' => '#cartData')); ?>
+            <?php echo $this->Js->submit('Lisää koriin', array('update' => '#cartData')); ?>
 
             <?php echo $this->Form->end(); ?>
           </td>
@@ -202,24 +201,29 @@
                       <li><strong>Hinta:</strong>&nbsp;<?php echo $product['Product']['product_price']; ?>&nbsp;&euro;</li>
                     </ul>
             
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-   
-   <?php endif; ?> 
-    
-   <?php endforeach; ?> 
-    
-    </tbody>  
-    </table>   
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+         
+         <?php endif; ?> 
+          
+         <?php endforeach; ?> 
+          
+          </tbody>  
+          </table>   
 
-<?php endif; ?>    
+      <?php endif; ?>   
 
- </div>
-</div>  
+   </div><!--//Panel-body-->
+   </div><!--//Panel-default-->    
+ </div><!--//col-md-6-->
+ 
+ 
+
+ </div><!--//Row-->
 
     
