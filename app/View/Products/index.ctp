@@ -146,12 +146,15 @@
     </div><!-- /.container -->
 
     <script>
-    setInterval(function(){
-    $.ajax({ url: "http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts", success: function(){
-        //Update your dashboard gauge
+
+    (function poll() {
+      setTimeout(function() {
+       $.ajax({ url: "http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts", success: function() {
+            //Update your dashboard gauge
         $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts");
-    }
-  });
-  }, 5000);
+       }, complete: poll });
+    }, 5000);
+   })();
+    
     </script>
  

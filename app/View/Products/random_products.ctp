@@ -1,7 +1,7 @@
 
          
       <div class="panel panel-default">
-        <div class="panel-heading"><h4><i class="icon-screenshot"></i>&nbsp;&nbsp;Random products:</h4></div>
+        <div class="panel-heading"><h4><i class="icon-random"></i>&nbsp;&nbsp;Random products:</h4></div>
            <div class="panel-body">  
            		<?php $i = 0; ?>
            		<?php foreach ($products as $product) :?>				
