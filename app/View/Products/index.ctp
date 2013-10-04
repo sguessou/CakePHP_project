@@ -128,6 +128,7 @@
         </div><!--//col-lg-6-->
         <div class="col-lg-6">
            <div id="viewCart"></div>
+           <div id="randomProducts"></div> 
         </div>
       </div><!--//row-->
 
@@ -143,4 +144,14 @@
       </footer>
 
     </div><!-- /.container -->
+
+    <script>
+    setInterval(function(){
+    $.ajax({ url: "http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts", success: function(){
+        //Update your dashboard gauge
+        $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts");
+    }
+  });
+  }, 5000);
+    </script>
  
