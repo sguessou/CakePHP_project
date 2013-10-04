@@ -237,15 +237,24 @@ class ProductsController extends AppController {
 
         $products = array();
 
-        for ($i = 0; $i < 8; $i++)
+        $i = 0;
+
+        while ($i < 8)
         {
-            $products[] = $productIds[rand(0, $count-1)];
+           $arrIndex =  rand(0, $count-1);
+
+           if ( $productIds[$arrIndex] > 0)
+           {
+                $products[] = $productIds[$arrIndex];
+
+                $productIds[$arrIndex] = 0;
+           }
+
+           $i++;
         }
 
-        $this->set('products', $products); 
-    }
-
-
-
+        $this->set('products', $products);
+                    
+    }//End method randomProducts
 	
-}
+}//End class ProductsController
