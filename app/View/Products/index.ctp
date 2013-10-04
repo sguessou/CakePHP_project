@@ -81,21 +81,16 @@
     <div class="container">
 
       <div class="row section">
-        <div class="col-lg-2"></div>
-         <div class="col-lg-8">
+
+         <div class="col-lg-6">
 
    
          
 
-          
+      <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="icon-search"></i>&nbsp;&nbsp;Tuotehaku</h4></div>
+        <div class="panel-body">    
 
-       <div id="viewCart"></div>
-      
-      <br />
-
-      <div class="header"> 
-        <h3 class="text-muted">Tuotehaku</h3>
-      </div>
      
       <?php 
 
@@ -128,7 +123,11 @@
 
        <?php echo $this->BootstrapForm->end('Etsi Tuoteitta'); ?>
 
-
+            </div><!--//Panel-body-->
+          </div><!--//Panel-default-->   
+        </div><!--//col-lg-6-->
+        <div class="col-lg-6">
+           <div id="viewCart"></div>
         </div>
-      </div>
+      </div><!--//row-->
  
