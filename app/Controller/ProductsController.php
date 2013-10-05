@@ -23,26 +23,6 @@ class ProductsController extends AppController {
        
         $cart_id = $this->getCartId();
 
-        if ( $this->RequestHandler->isAjax())
-        {
-            $cartId = $this->Session->read('cartId');
-
-            $this->logUser('IndexAjax');
-                
-            $this->set('dataitems', $db->fetchAll('SELECT products.* , product_types.type_name as typeName FROM products 
-                                                   INNER JOIN cartitems
-                                                   INNER JOIN product_types  
-                                                   WHERE products.product_id = cartitems.product_id
-                                                   AND products.ptype_id = product_types.ptype_id 
-                                                   AND cartitems.cart_id LIKE ?', array($cartId)));   
-
-            $this->render('add_to_cart', 'ajax');
-        }   
-         
-        $count = $db->fetchAll('SELECT COUNT(*) as cnt FROM cartitems WHERE cart_id LIKE ?', array($cart_id));
-
-        $this->set('count', (int) $count[0][0]['cnt']);
-
         $this->pageTitle = 'Verkkokauppa';
         
     }//End method index
@@ -73,25 +53,6 @@ class ProductsController extends AppController {
 
             $this->set('count', (int) $count[0][0]['cnt']);
         }
-
-        if ( $this->RequestHandler->isAjax() && $action)
-        {
-            
-                $this->logUser('Ajax-show');
-
-                $cartId = $this->getCartId();
-                        
-                $this->set('dataitems', $db->fetchAll('SELECT products.* , product_types.type_name as typeName FROM products 
-                                                       INNER JOIN cartitems
-                                                       INNER JOIN product_types  
-                                                       WHERE products.product_id = cartitems.product_id
-                                                       AND products.ptype_id = product_types.ptype_id 
-                                                       AND cartitems.cart_id LIKE ?', array($cartId)));
-          
-                $this->render('add_to_cart', 'ajax');        
-            
-        }  
- 
 
     }//End method search
 
@@ -282,7 +243,7 @@ class ProductsController extends AppController {
         $db = ConnectionManager::getDataSource('default');
 
         $cart_id = $this->getCartId();
-        
+
         $count = $db->fetchAll('SELECT COUNT(*) as cnt FROM cartitems WHERE cart_id LIKE ?', array($cart_id));
 
         $this->set('count', (int) $count[0][0]['cnt']);

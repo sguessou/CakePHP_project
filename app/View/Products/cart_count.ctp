@@ -1,15 +1,7 @@
  <?php if ( ! $count) :?>
             <i class="icon-shopping-cart"></i>&nbsp;Ostoskorisi on tyhjä!
           <?php elseif ($count == 1) :?>
-            <i class="icon-shopping-cart"></i>&nbsp;<?php echo $this->Js->link('Sisältö '.$count.' tuote',
-                                                                               array('controller' => 'products',
-                                                                                     'action' => 'index'),
-                                                                               array('update' => '#viewCart')
-                                                                          ); ?>
+            <i class="icon-shopping-cart"></i>&nbsp;<a href="#" onClick="showCart(); return false;">Sisältö <?php echo $count; ?> tuote</a>
            <?php elseif ($count > 1) :?>
-            <i class="icon-shopping-cart"></i>&nbsp;<?php echo $this->Js->link('Sisältö '.$count.' tuotetta',
-                                                                               array('controller' => 'products',
-                                                                                     'action' => 'index'),
-                                                                               array('update' => '#viewCart')
-                                                                          ); ?>
+            <i class="icon-shopping-cart"></i>&nbsp;<a href="#" onClick="showCart(); return false;">Sisältö <?php echo $count; ?> tuotetta</a>
           <?php endif ?>   

@@ -19,20 +19,8 @@
             <li><a href="/products/addView">Lisää tuote</a></li>
           </ul>
 
-          <p class="navbar-text pull-right">
-          
-           <?php if ($count > 0) :?>
+          <p id="cartCount" class="navbar-text pull-right"></p>
 
-
-            <i class="icon-shopping-cart"></i>&nbsp;<?php echo $this->Js->link('Näytä sisältö',
-                                                                               array('controller' => 'products',
-                                                                                     'action' => 'search',
-                                                                                     'showCart'
-                                                                                     ),
-                                                                               array('update' => '#cartData')
-                                                                          ); ?>
-          <?php endif ?>   
-          </p>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
     </nav>
@@ -81,7 +69,7 @@
       <div class="row section">
 
       <div class="col-lg-5">
-           <div id="cartData"></div>
+           <div id="viewCart"></div>
       </div>  
 
       
@@ -118,7 +106,7 @@
           <td><a data-toggle="modal" href="#modal_<?php echo $product['Product']['product_id']; ?>">   
            <?php echo $product['Product']['product_name']; ?></a></td>
           <td>
-            <a href="#" class="btn btn-info" onClick="addToCart(<?php echo $product['Product']['product_id']; ?>); return false;">Lisää ostoskoriin</a>
+            <a href="#" class="btn btn-info" onClick="addToCart(<?php echo $product['Product']['product_id']; ?>); return false;"><i class="icon-plus-sign"></i>&nbsp;Lisää ostoskoriin</a>
           </td>
           </tr>
         
@@ -224,23 +212,34 @@
     </div><!-- /.container -->
 
     <script>
+        
+        $(document).ready(function() {
+            $('#cartCount').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/cartCount");  
+       });//ready
 
- function addToCart(pid)
- {
-  var request = $.ajax({
-      type: "POST",
-       url: "/products/addItem/", 
-      data: {pid: pid}
+        function showCart()
+        {
+          $('#viewCart').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/addToCart");  
+        }
+
+       function addToCart(pid)
+       {
+        var request = $.ajax({
+            type: "POST",
+             url: "/products/addItem/", 
+            data: {pid: pid}
+            });
+
+        request.done(function() {
+            $('#viewCart').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/addToCart", function() {
+              $('#cartCount').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/cartCount"); 
+            });
+        });
+       
+      request.fail(function( jqXHR, textStatus ) {
+        alert( "Request failed: " + textStatus );
       });
 
-  request.done(function() {
-  $('#cartData').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/addToCart");
-});
- 
-request.fail(function( jqXHR, textStatus ) {
-  alert( "Request failed: " + textStatus );
-});
-
-}
+      }
    </script>
     

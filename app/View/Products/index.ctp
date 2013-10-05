@@ -18,9 +18,8 @@
             <li><a href="/products/addView">Lisää tuote</a></li>
           </ul>
 
-          <p id="cartCount" class="navbar-text pull-right">
+          <p id="cartCount" class="navbar-text pull-right"></p>
           
-          </p>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
     </nav>
@@ -150,5 +149,10 @@
         $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts").hide().fadeIn(2000);}
         , 5000);
    });//ready
+
+    function showCart()
+    {
+      $('#viewCart').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/addToCart");  
+    }
     </script>
  
