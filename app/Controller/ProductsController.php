@@ -8,20 +8,19 @@ class ProductsController extends AppController {
 
     public $components = array('RequestHandler');
 
+    public $baseUrl = FULL_BASE_URL;
 
 	public function index()
 	{
-        $db = ConnectionManager::getDataSource('default');
+        $this->getCartId();
 
         $this->logUser('Index');
 
 		$this->set('title_for_layout', 'Verkkokauppa');
-        
+        $this->set('baseUrl', $this->baseUrl);
+           
         $this->loadModel('Product_type');
-        
         $this->set('ptypes', $this->Product_type->find('all'));
-       
-        $cart_id = $this->getCartId();
 
         $this->pageTitle = 'Verkkokauppa';
         
@@ -48,10 +47,7 @@ class ProductsController extends AppController {
             $products = $this->searchEngine($fieldName, $orderByName, $productTypeId);
 
             $this->set('products', $products);
-
-            $count = $db->fetchAll('SELECT COUNT(*) as cnt FROM cartitems WHERE cart_id LIKE ?', array($cartId));
-
-            $this->set('count', (int) $count[0][0]['cnt']);
+            $this->set('baseUrl', $this->baseUrl);
         }
 
     }//End method search

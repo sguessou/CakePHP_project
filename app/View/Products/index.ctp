@@ -19,7 +19,7 @@
           </ul>
 
           <p id="cartCount" class="navbar-text pull-right"></p>
-          
+
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
     </nav>
@@ -76,7 +76,6 @@
             <div class="panel-heading"><h4><i class="icon-search"></i>&nbsp;&nbsp;Tuotehaku</h4></div>
         <div class="panel-body">    
 
-     
       <?php 
 
       $options = array();
@@ -141,18 +140,18 @@
 
     $(document).ready(function() {
 
-    $('#cartCount').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/cartCount");  
+    $('#cartCount').load("<?php echo $baseUrl; ?>/products/cartCount");  
     
-    $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts");
+    $('#randomProducts').load("<?php echo $baseUrl; ?>/products/randomProducts");
 
     setInterval(function() {
-        $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts").hide().fadeIn(2000);}
+        $('#randomProducts').load("<?php echo $baseUrl; ?>/products/randomProducts").hide().fadeIn(2000);}
         , 5000);
    });//ready
 
     function showCart()
     {
-      $('#viewCart').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/addToCart");  
+      $('#viewCart').load("<?php echo $baseUrl ?>/products/addToCart");  
     }
     </script>
  

@@ -214,25 +214,25 @@
     <script>
         
         $(document).ready(function() {
-            $('#cartCount').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/cartCount");  
+            $('#cartCount').load("<?php echo $baseUrl; ?>/products/cartCount");  
        });//ready
 
         function showCart()
         {
-          $('#viewCart').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/addToCart");  
+          $('#viewCart').load("<?php echo $baseUrl; ?>/products/addToCart");  
         }
 
        function addToCart(pid)
        {
         var request = $.ajax({
             type: "POST",
-             url: "/products/addItem/", 
+             url: "<?php echo $baseUrl; ?>/products/addItem/", 
             data: {pid: pid}
             });
 
         request.done(function() {
-            $('#viewCart').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/addToCart", function() {
-              $('#cartCount').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/cartCount"); 
+            $('#viewCart').load("<?php echo $baseUrl; ?>/products/addToCart", function() {
+              $('#cartCount').load("<?php echo $baseUrl; ?>/products/cartCount"); 
             });
         });
        
