@@ -18,22 +18,8 @@
             <li><a href="/products/addView">Lisää tuote</a></li>
           </ul>
 
-          <p class="navbar-text pull-right">
-          <?php if ( ! $count) :?>
-            <i class="icon-shopping-cart"></i>&nbsp;Ostoskorisi on tyhjä!
-          <?php elseif ($count == 1) :?>
-            <i class="icon-shopping-cart"></i>&nbsp;<?php echo $this->Js->link('Sisältö '.$count.' tuote',
-                                                                               array('controller' => 'products',
-                                                                                     'action' => 'index'),
-                                                                               array('update' => '#viewCart')
-                                                                          ); ?>
-           <?php elseif ($count > 1) :?>
-            <i class="icon-shopping-cart"></i>&nbsp;<?php echo $this->Js->link('Sisältö '.$count.' tuotetta',
-                                                                               array('controller' => 'products',
-                                                                                     'action' => 'index'),
-                                                                               array('update' => '#viewCart')
-                                                                          ); ?>
-          <?php endif ?>   
+          <p id="cartCount" class="navbar-text pull-right">
+          
           </p>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
@@ -153,21 +139,16 @@
     </div><!-- /.container -->
 
     <script>
+
+    $(document).ready(function() {
+
+    $('#cartCount').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/cartCount");  
     
     $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts");
 
     setInterval(function() {
         $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts").hide().fadeIn(2000);}
         , 5000);
-    /*  
-    (function poll() {
-      setTimeout(function() {
-       $.ajax({ url: "http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts", success: function() {
-            //Update your dashboard gauge
-        $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts").hide().fadeIn(2000);
-       }, complete: poll });
-    }, 5000);
-   })();
-    */
+   });//ready
     </script>
  
