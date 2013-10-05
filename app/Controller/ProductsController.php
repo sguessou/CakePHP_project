@@ -20,17 +20,8 @@ class ProductsController extends AppController {
         $this->loadModel('Product_type');
         
         $this->set('ptypes', $this->Product_type->find('all'));
-
-        // If cart_id is in the session, get it from there 
-        $cart_id = $this->Session->read('cartId');
-
-        // If not we generate a new one and save it in the session
-        if (! $cart_id)
-        {
-            $cart_id = md5( uniqid(rand(), true) );
-
-            $this->Session->write('cartId', $cart_id);
-        }
+       
+        $cart_id = $this->getCartId();
 
         if ( $this->RequestHandler->isAjax())
         {
@@ -63,7 +54,7 @@ class ProductsController extends AppController {
 
         $db = ConnectionManager::getDataSource('default');
 
-        $cartId = $this->Session->read('cartId');
+        $cartId = $this->getCartId();
 
 
         if ( isset($this->data['Product']['product_name'])) 
@@ -88,7 +79,7 @@ class ProductsController extends AppController {
             
                 $this->logUser('Ajax-show');
 
-                $cartId = $this->Session->read('cartId');
+                $cartId = $this->getCartId();
                         
                 $this->set('dataitems', $db->fetchAll('SELECT products.* , product_types.type_name as typeName FROM products 
                                                        INNER JOIN cartitems
@@ -163,7 +154,7 @@ class ProductsController extends AppController {
     public function addToCart()
     {
        
-        $cartId = $this->Session->read('cartId');
+        $cartId = $this->getCartId();
 
         $db = ConnectionManager::getDataSource('default');
 
@@ -183,7 +174,7 @@ class ProductsController extends AppController {
 
         $this->loadModel('Cartitem');
 
-        $cartId = $this->Session->read('cartId');
+        $cartId = $this->getCartId();
 
         $conditions = array('Cartitem.cart_id' => $cartId);
 
@@ -209,6 +200,7 @@ class ProductsController extends AppController {
     public function randomProducts()
     {
         $db = ConnectionManager::getDataSource('default');
+
         $productIds = $db->fetchAll('SELECT product_id FROM products ORDER BY product_id DESC');
 
         $count = $db->fetchAll('SELECT COUNT(*) as cnt FROM products');
@@ -249,17 +241,24 @@ class ProductsController extends AppController {
 
     public function getCartId()
     {
-        $cartId = $this->Session->read('cartId');
+        // If cart_id is in the session, get it from there 
+        $cart_id = $this->Session->read('cartId');
 
-        if (! $cartId)
+        if ( $cart_id)
+        {
+            return $cart_id;
+        }
+
+        // If not we generate a new one and save it in the session
+        if (! $cart_id)
         {
             $cart_id = md5( uniqid(rand(), true) );
 
             $this->Session->write('cartId', $cart_id);
-        }
 
-        return $cartId;
-    }
+            return $cart_id;
+        }
+    }//End getCartId
 
     public function addItem()
     {
