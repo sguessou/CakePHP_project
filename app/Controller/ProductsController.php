@@ -266,5 +266,36 @@ class ProductsController extends AppController {
 
         $this->set('products', $products);
     }
+
+    public function getCartId()
+    {
+        $cartId = $this->Session->read('cartId');
+
+        if (! $cartId)
+        {
+            $cart_id = md5( uniqid(rand(), true) );
+
+            $this->Session->write('cartId', $cart_id);
+        }
+
+        return $cartId;
+    }
+
+    public function addItem()
+    {
+        $cartId = $this->getCartId();
+
+        $pid = $this->request->data['pid'];
+
+        $this->loadModel('Cartitem');
+
+        $this->Cartitem->create();
+        $this->Cartitem->set('cart_id', $cartId);
+        $this->Cartitem->set('product_id', $pid);
+        $this->Cartitem->set('added_at', date("Y-m-d H:i:s"));
+        $this->Cartitem->save();
+
+        return;
+    }
 	
 }//End class ProductsController

@@ -1,3 +1,5 @@
+<div id="randomProducts">
+
 <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="icon-screenshot"></i>&nbsp;&nbsp;Haun Tulos:</h4></div>
         <div class="panel-body">    
@@ -28,7 +30,7 @@
           <td><a data-toggle="modal" href="#modal_<?php echo $product['products']['product_id']; ?>">   
            <?php echo $product['products']['product_name']; ?></a></td>
           <td>
-            <a href="/products/addToCart" class="btn btn-info" >Lisää ostoskoriin</a>
+            <a href="#" class="btn btn-info" onClick="addToCart(<?php echo $product['products']['product_id']; ?>);">Lisää ostoskoriin</a>
           </td>
           </tr>
         
@@ -114,12 +116,19 @@
 
    </div><!--//Panel-body-->
    </div><!--//Panel-default-->    
-
+  </div><!--//randomProducts-->
    <script>
-   $('#message a').click(function() {
-		var href=$(this).attr('href');
-		var querystring=href.slice(href.indexOf('?')+1);
-		$.get('rate.php', querystring, processResponse);
-		return false; // stop the link
-		});
+
+ function addToCart(pid)
+ {
+	$.ajax({
+			type:"POST",
+		    url: "/products/addItem",
+		    data: {pid: pid}
+			});
+
+	$('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/listProducts/1");
+  	
+
+}
    </script>

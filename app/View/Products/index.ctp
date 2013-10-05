@@ -128,7 +128,14 @@
         </div><!--//col-lg-6-->
         <div class="col-lg-6">
            <div id="viewCart"></div>
-           <div id="randomProducts"></div> 
+
+        <div class="panel panel-default">
+          <div class="panel-heading"><h4><i class="icon-random"></i>&nbsp;&nbsp;Random products:</h4></div>
+           <div class="panel-body">
+               <div id="randomProducts"></div> 
+          </div><!--//Panel-body-->
+        </div><!--//Panel-default-->  
+
         </div>
       </div><!--//row-->
 
@@ -146,15 +153,21 @@
     </div><!-- /.container -->
 
     <script>
+    
+    $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts");
 
+    setInterval(function() {
+        $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts").hide().fadeIn(2000);}
+        , 5000);
+    /*  
     (function poll() {
       setTimeout(function() {
        $.ajax({ url: "http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts", success: function() {
             //Update your dashboard gauge
-        $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts");
+        $('#randomProducts').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/randomProducts").hide().fadeIn(2000);
        }, complete: poll });
     }, 5000);
    })();
-    
+    */
     </script>
  
