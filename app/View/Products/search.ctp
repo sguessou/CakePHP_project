@@ -118,23 +118,7 @@
           <td><a data-toggle="modal" href="#modal_<?php echo $product['Product']['product_id']; ?>">   
            <?php echo $product['Product']['product_name']; ?></a></td>
           <td>
-            <?php echo $this->Form->create('Product', array('action' => 'search')); ?>
-          
-            <?php echo $this->Form->input('Cartitem.product_id', array(
-                                                                       'type' => 'hidden', 
-                                                                       'value' => $product['Product']['product_id'])); ?>
-
-            <?php echo $this->Form->input('Cartitem.cart_id', array(
-                                                                       'type' => 'hidden', 
-                                                                       'value' => $this->Session->read('cartId'))); ?>  
-             <?php echo $this->Form->input('Form.action', array(
-                                                                       'type' => 'hidden', 
-                                                                       'value' => 'addProduct')); ?> 
-
-
-            <?php echo $this->Js->submit('Lisää koriin', array('update' => '#cartData')); ?>
-
-            <?php echo $this->Form->end(); ?>
+            <a href="#" class="btn btn-info" onClick="addToCart(<?php echo $product['Product']['product_id']; ?>); return false;">Lisää ostoskoriin</a>
           </td>
           </tr>
         
@@ -238,4 +222,25 @@
       </footer>
 
     </div><!-- /.container -->
+
+    <script>
+
+ function addToCart(pid)
+ {
+  var request = $.ajax({
+      type: "POST",
+       url: "/products/addItem/", 
+      data: {pid: pid}
+      });
+
+  request.done(function() {
+  $('#cartData').load("http://<?php echo $_SERVER['SERVER_NAME']; ?>/products/addToCart");
+});
+ 
+request.fail(function( jqXHR, textStatus ) {
+  alert( "Request failed: " + textStatus );
+});
+
+}
+   </script>
     

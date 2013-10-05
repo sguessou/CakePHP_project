@@ -83,26 +83,6 @@ class ProductsController extends AppController {
             $this->set('count', (int) $count[0][0]['cnt']);
         }
 
-        if ( $this->RequestHandler->isAjax() && ! empty($this->data))
-        { 
-            $this->loadModel('Cartitem');
-            
-            if ( $this->Cartitem->save($this->data))
-            {
-                $cartId = $this->Session->read('cartId');
-
-                $this->logUser('Ajax-add');
-                        
-                $this->set('dataitems', $db->fetchAll('SELECT products.* , product_types.type_name as typeName FROM products 
-                                                       INNER JOIN cartitems
-                                                       INNER JOIN product_types  
-                                                       WHERE products.product_id = cartitems.product_id
-                                                       AND products.ptype_id = product_types.ptype_id 
-                                                       AND cartitems.cart_id LIKE ?', array($cartId)));
-                $this->render('add_to_cart', 'ajax');                   
-            }  
-        } 
-
         if ( $this->RequestHandler->isAjax() && $action)
         {
             
@@ -285,6 +265,8 @@ class ProductsController extends AppController {
     {
         $cartId = $this->getCartId();
 
+        $this->autoRender = false;
+
         $pid = $this->request->data['pid'];
 
         $this->loadModel('Cartitem');
@@ -294,8 +276,6 @@ class ProductsController extends AppController {
         $this->Cartitem->set('product_id', $pid);
         $this->Cartitem->set('added_at', date("Y-m-d H:i:s"));
         $this->Cartitem->save();
-
-        return;
     }
 	
 }//End class ProductsController
