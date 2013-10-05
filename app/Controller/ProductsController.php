@@ -248,13 +248,23 @@ class ProductsController extends AppController {
                 $products[] = $productIds[$arrIndex];
 
                 $productIds[$arrIndex] = 0;
-           }
 
-           $i++;
+                $i++;
+           }
+           
         }
 
         $this->set('products', $products);
-                    
+
     }//End method randomProducts
+
+    public function listProducts($productTypeId)
+    {
+        $db = ConnectionManager::getDataSource('default');
+
+        $products = $db->fetchAll('SELECT * FROM products WHERE ptype_id = ? ORDER BY product_id DESC', array($productTypeId));
+
+        $this->set('products', $products);
+    }
 	
 }//End class ProductsController
