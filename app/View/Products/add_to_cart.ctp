@@ -13,7 +13,7 @@
          <tr>
             <th>#</th>
             <th>Tuotenimi</th>
-            <th>hinta</th>
+            <th>Hinta</th>
          </tr>
          </thead>
          <tbody>
@@ -33,7 +33,7 @@
                 </td>
             <?php endif ?>
                 
-             <td><?php echo $dataitem['products']['product_price']; ?></td>
+             <td><b><?php echo $dataitem['cartitems']['quantity']; ?></b> kpl à <b><?php echo $dataitem['products']['product_price']; ?></b></td>
             </tr>
 
 

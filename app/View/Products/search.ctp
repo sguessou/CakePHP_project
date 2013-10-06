@@ -68,13 +68,13 @@
       
       <div class="row section">
 
-      <div class="col-lg-5">
+      <div class="col-lg-6">
            <div id="viewCart"></div>
       </div>  
 
       
       
-      <div class="col-lg-7">
+      <div class="col-lg-6">
          
       <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="icon-screenshot"></i>&nbsp;&nbsp;Haun Tulos:</h4></div>
@@ -106,7 +106,7 @@
           <td><a data-toggle="modal" href="#modal_<?php echo $product['Product']['product_id']; ?>">   
            <?php echo $product['Product']['product_name']; ?></a></td>
           <td>
-            <a href="#" class="btn btn-info" onClick="addToCart(<?php echo $product['Product']['product_id']; ?>); return false;"><i class="icon-plus-sign"></i>&nbsp;Lisää ostoskoriin</a>
+            <a href="#" class="btn btn-info" onClick="addToCart(<?php echo $product['Product']['product_id']; ?>); return false;"><i class="icon-plus-sign"></i>&nbsp;Osta</a>
           </td>
           </tr>
         
