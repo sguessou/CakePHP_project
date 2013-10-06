@@ -1,2 +1,3 @@
-Experimenting with CakePHP...
+Experimenting with CakePHP and AJAX.
+
 
