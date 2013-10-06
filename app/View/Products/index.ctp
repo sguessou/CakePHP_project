@@ -153,5 +153,23 @@
     {
       $('#viewCart').load("<?php echo $baseUrl ?>/products/addToCart");  
     }
+
+    function emptyCart()
+    {
+      var request = $.ajax({
+                type: "GET",
+                 url: "<?php echo $baseUrl; ?>/products/emptyCart" 
+                });
+
+            request.done(function() {
+                $('#viewCart').load("<?php echo $baseUrl; ?>/products/addToCart", function() {
+                  $('#cartCount').load("<?php echo $baseUrl; ?>/products/cartCount"); 
+                });
+            });
+           
+          request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+          });
+    }
     </script>
  

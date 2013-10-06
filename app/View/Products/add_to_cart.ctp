@@ -114,7 +114,7 @@
          </table>  
 
    		
-      <p><a id="emptyCart" href="/products/emptyCart" class="btn btn-danger" ><i class="icon-trash"></i>&nbsp;Tyhjennä!</a></p> 
+      <p><a id="emptyCart" href="#" class="btn btn-danger" onClick="emptyCart(); return false;"><i class="icon-trash"></i>&nbsp;Tyhjennä!</a></p> 
  </div><!--//Panel-body-->
 </div><!--//Panel-default-->           
 
@@ -126,5 +126,6 @@
   </div>
 
 <?php endif; ?> 	
+
 
 
