@@ -115,7 +115,7 @@ class ProductsController extends AppController {
 
         $db = ConnectionManager::getDataSource('default');
 
-        $this->set('dataitems', $db->fetchAll('SELECT products.* , product_types.type_name as typeName FROM products 
+        $this->set('dataitems', $db->fetchAll('SELECT products.* , cartitems.quantity, product_types.type_name as typeName FROM products 
                                                 INNER JOIN cartitems
                                                 INNER JOIN product_types  
                                                 WHERE products.product_id = cartitems.product_id
@@ -219,19 +219,37 @@ class ProductsController extends AppController {
 
     public function addItem()
     {
+        $db = ConnectionManager::getDataSource('default');
+        $this->loadModel('Cartitem');
+
         $cartId = $this->getCartId();
 
         $this->autoRender = false;
 
         $pid = $this->request->data['pid'];
 
-        $this->loadModel('Cartitem');
+        //We check if product exist in cart
+        $count = $db->fetchAll('SELECT COUNT(*) as cnt FROM cartitems 
+                                WHERE product_id = ? AND cart_id LIKE ?', array($pid, $cartId));
 
-        $this->Cartitem->create();
-        $this->Cartitem->set('cart_id', $cartId);
-        $this->Cartitem->set('product_id', $pid);
-        $this->Cartitem->set('added_at', date("Y-m-d H:i:s"));
-        $this->Cartitem->save();
+        $count = (int) $count[0][0]['cnt'];
+
+        if ( $count)
+        {
+            $this->Cartitem->updateAll(array('Cartitem.quantity' => 'Cartitem.quantity + 1'), 
+                                            array(
+                                                'Cartitem.cart_id LIKE' => $cartId, 
+                                                'Cartitem.product_id' => $pid
+                                            ));        
+        }
+        elseif ( ! $count)
+        {
+            $this->Cartitem->create();
+            $this->Cartitem->set('cart_id', $cartId);
+            $this->Cartitem->set('product_id', $pid);
+            $this->Cartitem->set('added_at', date("Y-m-d H:i:s"));
+            $this->Cartitem->save();
+        }    
     }
 	
     public function cartCount()
