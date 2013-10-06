@@ -258,7 +258,7 @@ class ProductsController extends AppController {
 
         $cart_id = $this->getCartId();
 
-        $count = $db->fetchAll('SELECT COUNT(*) as cnt FROM cartitems WHERE cart_id LIKE ?', array($cart_id));
+        $count = $db->fetchAll('SELECT SUM(quantity) as cnt FROM cartitems WHERE cart_id LIKE ?', array($cart_id));
 
         $this->set('count', (int) $count[0][0]['cnt']);
     }
