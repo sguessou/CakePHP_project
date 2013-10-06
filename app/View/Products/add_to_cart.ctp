@@ -33,7 +33,7 @@
                 </td>
             <?php endif ?>
                 
-             <td><b><?php echo $dataitem['cartitems']['quantity']; ?></b> kpl à <b><?php echo $dataitem['products']['product_price']; ?></b></td>
+             <td><b><?php echo $dataitem['cartitems']['quantity']; ?></b> kpl à <b><?php echo $dataitem['products']['product_price'] * $dataitem['cartitems']['quantity']; ?></b></td>
             </tr>
 
 

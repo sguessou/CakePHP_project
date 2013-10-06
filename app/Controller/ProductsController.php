@@ -234,6 +234,7 @@ class ProductsController extends AppController {
 
         $count = (int) $count[0][0]['cnt'];
 
+        //If product found we update quantity
         if ( $count)
         {
             $this->Cartitem->updateAll(array('Cartitem.quantity' => 'Cartitem.quantity + 1'), 
@@ -242,6 +243,7 @@ class ProductsController extends AppController {
                                                 'Cartitem.product_id' => $pid
                                             ));        
         }
+        //If product not found we insert it into table 
         elseif ( ! $count)
         {
             $this->Cartitem->create();
