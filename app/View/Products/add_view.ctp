@@ -93,10 +93,14 @@
       
       ?>
 
-       <?php echo $this->BootstrapForm->create('Products', array('action' => 'add')); ?> 
+       <?php echo $this->BootstrapForm->create('Products', array('action' => 'add', 'type' => 'file')); ?> 
       
        <?php echo $this->BootstrapForm->input('Product.product_name', array('placeholder' => 'Tuotenimi', 'label' => false,
-                                                                            'required' => 'required')); ?>   
+                                                                            'required' => 'required')); ?>  
+       Anna tuotteen kuva:                                                                       
+       <?php echo $this->BootstrapForm->input('Product.picture', array('type' => 'file', 
+                                                                       'label' => false
+                                                                            )); ?>                                                                       
 
        <?php echo $this->BootstrapForm->input('Product.product_price', array('placeholder' => 'Hinta', 'label' => false,
                                                                             'required' => 'required')); ?>

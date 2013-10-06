@@ -218,7 +218,7 @@
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'php',
+		'defaults' => 'cake',
 		'timeout' => 4320, // The session will timeout after 30 minutes of inactivity
         'cookieTimeout' => 1440, //The session cookie will live for at most 24 hours, this does not effect session timeouts
         'checkAgent' => false,
