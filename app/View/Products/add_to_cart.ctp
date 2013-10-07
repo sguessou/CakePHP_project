@@ -121,7 +121,8 @@
 
 <?php elseif ( ! $dataitems) :?>
 
-	<div class="alert alert-danger">
+	<div class="alert alert-danger alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
            <strong>Huomio!</strong> Ostoskori on tyhjä!
   </div>
 
