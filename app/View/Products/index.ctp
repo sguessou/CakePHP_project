@@ -136,7 +136,8 @@
 
     </div><!-- /.container -->
 
-    <script>
+<script>    
+    
 
     $(document).ready(function() {
 
@@ -171,5 +172,6 @@
             alert( "Request failed: " + textStatus );
           });
     }
+    
     </script>
  

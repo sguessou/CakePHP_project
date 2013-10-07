@@ -1,37 +1,35 @@
 <?php
 
 
-class ContactsController extends AppController {
+<?php
 
-	public $helpers = array('Html', 'Form' => array('className' => 'BootstrapForm'), 'Js');
+/**
+ * Contact Controller
+ * @author James Fairhurst <info@jamesfairhurst.co.uk>
+ */
+class ContactController extends AppController {
 
-	public $components = array('RequestHandler');
-
-	// In the controller
-	public function contact() 
-	{
-		$this->set('contacts', $this->paginate());
-	}
-
-	public function index()
-	{
-		if (! empty($this->data))
-		{
+	/**
+	 * Main index action
+	 */
+	public function index() {
+		// form posted
+		if ($this->request->is('post')) {
+			// create
 			$this->Contact->create();
-			if ($this->Contact->save($this->data))
-			{
-				if ($this->RequestHandler->isAjax())
-				{
-					$this->set('contacts', $this->paginate());
-					$this->render('contact', 'ajax');
-				}
-				else
-				{
-					$this->Session->setFlash('Contact has been saved');
-					$this->redirect(array('action' => 'contact'));
+
+			// attempt to save
+			if ($this->Contact->save($this->request->data)) {
+				$this->Session->setFlash('Your message has been submitted');
+				$this->redirect(array('action' => 'index'));
+
+			// form validation failed
+			} else {
+				// check if file has been uploaded, if so get the file path
+				if (!empty($this->Contact->data['Contact']['filepath']) && is_string($this->Contact->data['Contact']['filepath'])) {
+					$this->request->data['Contact']['filepath'] = $this->Contact->data['Contact']['filepath'];
 				}
 			}
 		}
 	}
-
-} 
+}

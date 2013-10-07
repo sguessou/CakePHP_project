@@ -98,7 +98,7 @@
        <?php echo $this->BootstrapForm->input('Product.product_name', array('placeholder' => 'Tuotenimi', 'label' => false,
                                                                             'required' => 'required')); ?>  
        Anna tuotteen kuva:                                                                       
-       <?php echo $this->BootstrapForm->input('Product.picture', array('type' => 'file', 
+       <?php echo $this->BootstrapForm->input('Product.filename', array('type' => 'file', 
                                                                        'label' => false
                                                                             )); ?>                                                                       
 
