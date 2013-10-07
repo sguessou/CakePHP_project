@@ -2,6 +2,8 @@
 
 class Product extends AppModel {
 
+	public $components = array('Session');
+
 	public $name = 'Product';
 
 	public $validate = array(
@@ -26,6 +28,39 @@ class Product extends AppModel {
 													'allowEmpty' => TRUE,
 													'last' => TRUE
 												)));
+
+	public $uploadDir = 'images';
+
+	/**
+	 * Process the Upload
+	 * @param array $check
+	 * @return boolean
+	 */
+	public function processUpload($check=array()) {
+		// deal with uploaded file
+		if (!empty($check['filename']['tmp_name'])) {
+
+			// check file is uploaded
+			if (!is_uploaded_file($check['filename']['tmp_name'])) {
+				return FALSE;
+			}
+
+			
+			
+			App::uses('CakeSession', 'Model/Datasource');
+			$filename =  WWW_ROOT . $this->uploadDir . DS . CakeSession::read('lastInsertedId').'.jpg';
+			CakeSession::delete('lastInsertedId');
+
+			// try moving file
+			if (!move_uploaded_file($check['filename']['tmp_name'], $filename)) {
+				return FALSE;
+
+			// file successfully uploaded
+			} 
+		}
+
+		return TRUE;
+	}
 
 	
 }

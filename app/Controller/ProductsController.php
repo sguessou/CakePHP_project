@@ -96,8 +96,11 @@ class ProductsController extends AppController {
 
         if ( $this->request->is('post')) 
         {
+            $this->Product->create();
+
             if ( $this->Product->save($this->request->data)) 
             {
+                $this->Session->write('lastInsertedId', $this->Product->getLastInsertId() + 1);
                 $this->Session->setFlash('Tuote tallennettu!');
                 return $this->redirect(array('action' => 'addView'));
             }

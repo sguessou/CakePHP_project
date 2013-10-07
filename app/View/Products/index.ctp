@@ -69,6 +69,7 @@
 
          <div class="col-lg-6">
 
+              <div id="viewCart"></div>
    
          
 
@@ -111,7 +112,7 @@
           </div><!--//Panel-default-->   
         </div><!--//col-lg-6-->
         <div class="col-lg-6">
-           <div id="viewCart"></div>
+           
 
         <div class="panel panel-default">
           <div class="panel-heading"><h4><i class="icon-random"></i>&nbsp;&nbsp;Random products:</h4></div>
