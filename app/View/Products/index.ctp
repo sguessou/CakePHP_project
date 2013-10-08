@@ -96,23 +96,24 @@
        
        Valitse tuotekoodi:   
        <?php echo $this->BootstrapForm->select('Product.ptype_id', $options, array('empty' => false)); ?>
-
-       <br />
-       <br />
-
-       Järjestä tuotenimen mukaisesti:
-       <?php echo $this->Form->checkbox('order'); ?>
        
        <br />
        <br />
 
-       <?php echo $this->BootstrapForm->end('Etsi Tuoteitta'); ?>
+       Järjestä tuotenimen mukaisesti:&nbsp;<i class="icon-sort-by-alphabet"></i>&nbsp;
+       <?php echo $this->Form->checkbox('order'); ?>
+       
+       <br />
+       <br />
+       <a href="#" class="btn btn-info" onClick="searchDB(); return false;"><i class="icon-hdd"></i>&nbsp;Etsi Tuoteitta</a> 
+       <?php echo $this->BootstrapForm->end(); ?>
 
             </div><!--//Panel-body-->
           </div><!--//Panel-default-->   
         </div><!--//col-lg-6-->
         <div class="col-lg-6">
            
+          <div id="searchResult"></div>
 
         <div class="panel panel-default">
           <div class="panel-heading"><h4><i class="icon-random"></i>&nbsp;&nbsp;Random products:</h4></div>
@@ -172,6 +173,40 @@
           request.fail(function( jqXHR, textStatus ) {
             alert( "Request failed: " + textStatus );
           });
+    }
+
+     function addToCart(pid)
+       {
+        var request = $.ajax({
+            type: "POST",
+             url: "<?php echo $baseUrl; ?>/products/addItem/", 
+            data: {pid: pid}
+            });
+
+        request.done(function() {
+            $('#viewCart').load("<?php echo $baseUrl; ?>/products/addToCart", function() {
+              $('#cartCount').load("<?php echo $baseUrl; ?>/products/cartCount"); 
+            });
+        });
+       
+      request.fail(function( jqXHR, textStatus ) {
+        alert( "Request failed: " + textStatus );
+      });
+
+      }
+
+    function searchDB()
+    {
+      //If text input empty
+      if ( ! $.trim( $('#ProductProductName').val() ))
+        textInput = 0;
+      else
+        textInput =  $('#ProductProductName').val();  
+
+      var val = 0;
+      if ($('#order').is(':checked')) val = 1;
+      $('#searchResult').load("<?php echo $baseUrl; ?>/products/search/" +  textInput + "/" 
+                    + $('#ProductPtypeId').val() + "/" + val); 
     }
     
     </script>
