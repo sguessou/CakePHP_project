@@ -27,7 +27,7 @@ class ProductsController extends AppController {
     }//End method index
 
     
-    public function search($fieldName, $productTypeId, $orderByName)
+    public function search($fieldName = 0, $productTypeId = 1, $orderByName = 0)
     {
         $this->logUser('Search');
 
