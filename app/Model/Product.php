@@ -32,6 +32,20 @@ class Product extends AppModel {
 	public $uploadDir = 'images';
 
 	/**
+	 * Before Validation Callback
+	 * @param array $options
+	 * @return boolean
+	 */
+	public function beforeValidate($options = array()) {
+		// ignore empty file - causes issues with form validation when file is empty and optional
+		if (!empty($this->data[$this->alias]['filename']['error']) && $this->data[$this->alias]['filename']['error']==4 && $this->data[$this->alias]['filename']['size']==0) {
+			unset($this->data[$this->alias]['filename']);
+		}
+
+		return parent::beforeValidate($options);
+	}
+
+	/**
 	 * Process the Upload
 	 * @param array $check
 	 * @return boolean

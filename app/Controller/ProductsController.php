@@ -127,8 +127,6 @@ class ProductsController extends AppController {
         $this->Cartitem->deleteAll($conditions, false);
 
         $this->autoRender = false;
-        
-        //return $this->redirect(array('action' => 'index'));
     }
 
     public function logUser($action)
