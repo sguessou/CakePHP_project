@@ -66,21 +66,18 @@
     <div class="container">
 
       <div class="row section">
-        <div class="col-lg-2"></div>
-         <div class="col-lg-8">
+        <div class="col-lg-3"></div>
+         <div class="col-lg-6">
 
    
          
 
           
 
-       <div id="viewCart"></div>
-      
-      <br />
-
-      <div class="header"> 
-        <h3 class="text-muted">Lisää Tuote:</h3>
-      </div>
+       
+      <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="icon-archive"></i>&nbsp;&nbsp;Lisää Tuote:</h4></div>
+        <div class="panel-body">    
 
       <?php 
 
@@ -97,7 +94,7 @@
       
        <?php echo $this->BootstrapForm->input('Product.product_name', array('placeholder' => 'Tuotenimi', 'label' => false,
                                                                             'required' => 'required')); ?>  
-       Anna tuotteen kuva:                                                                       
+       Tuotteen kuva:                                                                       
        <?php echo $this->BootstrapForm->input('Product.filename', array('type' => 'file', 
                                                                        'label' => false
                                                                             )); ?>                                                                       
@@ -126,9 +123,10 @@
                                                                             'required' => 'required')); ?>    
       <?php echo $this->BootstrapForm->end('Tallenna'); ?> 
 
-</div>
-
-</div>
+        </div><!--//Panel-body-->
+      </div><!--//Panel-default-->  
+  </div><!--//col-lg-6-->
+</div><!--//Row-->
     
 
 <hr>
