@@ -27,28 +27,14 @@ class ProductsController extends AppController {
     }//End method index
 
     
-    public function search($action = NULL)
+    public function search($fieldName, $productTypeId, $orderByName)
     {
-        $this->set('title_for_layout', 'Haun Tulos');
+        $this->logUser('Search');
 
-        $db = ConnectionManager::getDataSource('default');
+        $products = $this->searchEngine($fieldName, $orderByName, $productTypeId);
 
-        $cartId = $this->getCartId();
-
-
-        if ( isset($this->data['Product']['product_name'])) 
-        {
-            $this->logUser('Search');
-
-            $fieldName = $this->data['Product']['product_name'];
-            $orderByName =  $this->data['order'];
-            $productTypeId = (int) $this->data['Product']['ptype_id'];
-            
-            $products = $this->searchEngine($fieldName, $orderByName, $productTypeId);
-
-            $this->set('products', $products);
-            $this->set('baseUrl', $this->baseUrl);
-        }
+        $this->set('products', $products);
+        $this->set('baseUrl', $this->baseUrl);
 
     }//End method search
 
@@ -214,7 +200,7 @@ class ProductsController extends AppController {
         // If not we generate a new one and save it in the session
         if (! $cart_id)
         {
-            $cart_id = md5( uniqid(rand(), true) );
+            $cart_id = md5( uniqid(rand(), TRUE));
 
             $this->Session->write('cartId', $cart_id);
 
