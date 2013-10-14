@@ -105,7 +105,7 @@
        
        <br />
        <br />
-       <a href="#" class="btn btn-info" onClick="searchDB(); return false;"><i class="icon-hdd"></i>&nbsp;Etsi Tuoteitta</a> 
+       <a href="#" id="searchDB" class="btn btn-info"><i class="icon-hdd"></i>&nbsp;Etsi Tuoteitta</a> 
        <?php echo $this->BootstrapForm->end(); ?>
 
             </div><!--//Panel-body-->
@@ -195,8 +195,8 @@
 
       }
 
-    function searchDB()
-    {
+    $('#searchDB').on('click', function(e) {
+
       //If text input empty
       if ( ! $.trim( $('#ProductProductName').val() ))
         textInput = 0;
@@ -207,7 +207,9 @@
       if ($('#order').is(':checked')) val = 1;
       $('#searchResult').load("<?php echo $baseUrl; ?>/products/search/" +  textInput + "/" 
                     + $('#ProductPtypeId').val() + "/" + val); 
-    }
+
+      e.preventDefault();
+   });
     
     </script>
  
