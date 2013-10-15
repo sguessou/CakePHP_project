@@ -141,22 +141,20 @@
 <script>    
     
 
-    $(document).ready(function() {
+$(document).ready(function() {
+
+    var $randomProducts = $('#randomProducts');
 
     $('#cartCount').load("<?php echo $baseUrl; ?>/products/cartCount");  
     
-    $('#randomProducts').load("<?php echo $baseUrl; ?>/products/randomProducts");
+    $randomProducts.load("<?php echo $baseUrl; ?>/products/randomProducts");
 
     setInterval(function() {
-        $('#randomProducts').load("<?php echo $baseUrl; ?>/products/randomProducts").hide().fadeIn(2000);}
-        , 5000);
-   });//ready
+        $randomProducts.load("<?php echo $baseUrl; ?>/products/randomProducts").hide().fadeIn(2000);
+                            }, 5000); 
+});//ready
 
-    function showCart()
-    {
-      $('#viewCart').load("<?php echo $baseUrl ?>/products/addToCart");  
-    }
-
+    
     function emptyCart()
     {
       var request = $.ajax({
@@ -195,21 +193,31 @@
 
       }
 
-    $('#searchDB').on('click', function(e) {
+      
+    function showCart()
+    {
+       $('#viewCart').load("<?php echo $baseUrl ?>/products/addToCart");
+    }
+  
+    //This function is called when search button is clicked.
+(function() {
 
-      //If text input empty
-      if ( ! $.trim( $('#ProductProductName').val() ))
-        textInput = 0;
-      else
-        textInput =  $('#ProductProductName').val();  
+      $('#searchDB').on('click', function(e) {
 
-      var val = 0;
-      if ($('#order').is(':checked')) val = 1;
-      $('#searchResult').load("<?php echo $baseUrl; ?>/products/search/" +  textInput + "/" 
-                    + $('#ProductPtypeId').val() + "/" + val); 
+        //If text input empty
+        if ( ! $.trim( $('#ProductProductName').val() ))
+          textInput = 0;
+        else
+          textInput =  $('#ProductProductName').val();  
 
-      e.preventDefault();
-   });
+        var val = 0;
+        if ($('#order').is(':checked')) val = 1;
+        $('#searchResult').load("<?php echo $baseUrl; ?>/products/search/" +  textInput + "/" 
+                      + $('#ProductPtypeId').val() + "/" + val); 
+
+        e.preventDefault();
+     });
+})();
     
     </script>
  
